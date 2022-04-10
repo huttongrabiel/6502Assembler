@@ -7,8 +7,10 @@
 
 #include <iostream>
 #include <map>
+#include <fstream>
 
 class SymbolTable {
+public:
     typedef std::map<const std::string, const long long> SymbolTableMap;
     typedef std::string SymbolName;
     typedef long long ProgramLine;
@@ -16,8 +18,11 @@ class SymbolTable {
     SymbolTable();
     ~SymbolTable();
     SymbolTableMap symbol_table;
-    void push_back(SymbolName);
     void insert(SymbolName, ProgramLine);
+    void fill_symbol_table(std::ifstream&);
+    void print_symbol_table();
+private:
+    long long program_counter = 0x00;
 };
 
 #endif //SYSTEMMONITOR_SYMBOLTABLE_H
