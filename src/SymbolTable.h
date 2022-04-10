@@ -22,7 +22,7 @@ public:
     void fill_symbol_table(std::ifstream&);
     void print_symbol_table();
 private:
-    long long program_counter = 0x00;
+    long long program_counter = 0x01;
 };
 
 #endif //SYSTEMMONITOR_SYMBOLTABLE_H
