@@ -1,0 +1,8 @@
+//
+// Created by whuty on 4/9/22.
+//
+
+#ifndef INC_6502ASSEMBLER_OPCODES_H
+#define INC_6502ASSEMBLER_OPCODES_H
+
+#endif //INC_6502ASSEMBLER_OPCODES_H
