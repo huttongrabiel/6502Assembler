@@ -10,6 +10,8 @@ set(CMAKE_CXX_FLAGS "-g -Wall -std=c++17 -Werror -D CMAKE_CXX_COMPILER=/usr/bin/
 set(SRC src/SymbolTable.cpp
         src/SymbolTable.h
         src/Assemble.cpp
+        src/Tokenizer.cpp
+        src/Tokenizer.h
    )
 
 add_executable(Whuty6502Assembler ${SRC})
