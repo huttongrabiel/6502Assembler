@@ -4,61 +4,15 @@
 
 #include <OpCodes.h>
 
-public static enum OpCodes {
-    ADC,
-    AND,
-    ASL,
-    BCC,
-    BCS,
-    BEQ,
-    BIT,
-    BMI,
-    BNE,
-    BPL,
-    BRK,
-    BVC,
-    BVS,
-    CLC,
-    CLD,
-    CLI,
-    CLV,
-    CMP,
-    CPX,
-    CPY,
-    DEC,
-    DEX,
-    DEY,
-    EOR,
-    INC,
-    INX,
-    INY,
-    JMP,
-    JSR,
-    LDA,
-    LDX,
-    LDY,
-    LSR,
-    NOP,
-    ORA,
-    PHA,
-    PHP,
-    PLA,
-    PLP,
-    ROL,
-    ROR,
-    RTI,
-    RTS,
-    SBC,
-    SEC,
-    SED,
-    SEI,
-    STA,
-    STX,
-    STY,
-    TAX,
-    TAY,
-    TSX,
-    TXA,
-    TXS,
-    TYA
+OpCodes::OpCodeMap = {
+    {"ADC #", 0x69},            // immediate
+    {"ADC oper", 0x65},         // zeropage
+    {"ADC oper,X", 0x75},       // zeropage,X
+    {"ADC oper", 0x6D},         // absolute 
+    {"ADC oper,X", 0x7D},       // absolute,X 
+    {"ADC oper,Y", 0x79},       // absolute,Y
+    {"ADC (oper,X)", 0x61},     // (indirect,X)
+    {"ADC (oper),Y", 0x71},     // (indirect),Y
+
+
 };
