@@ -28,12 +28,13 @@ void SymbolTable::fill_symbol_table(std::ifstream& source_code) {
 
         Tokenizer t;
         auto trimmed_line = t.remove_whitespace(line);
-        t.remove_comments(trimmed_line);
-        auto const tokenized_line = t.tokenize_line(trimmed_line);
+        trimmed_line = t.remove_comments(trimmed_line);
+        std::vector<std::string> tokenized_line = t.tokenize_line(line);
 
         for (auto const& token : tokenized_line) {
-            std::cout << "\"" << token << "\",";
+            std::cout << token << " ";
         }
+
         std::cout << std::endl;
     }
 }
