@@ -24,18 +24,19 @@ std::vector<std::string> Tokenizer::tokenize_line(std::string line) {
             string_builder = "";
             continue;
         }
-        if (line[i] != ' ')
+        if (line[i] != ' ') {
             string_builder.push_back(line[i]);
+        }
     }
 
     return tokenized_line;
 }
 
-void Tokenizer::remove_comments(std::string& line) {
+std::string Tokenizer::remove_comments(std::string line) {
     int line_length = line.length();
     int comment_index = line_length-1; // EOL in case no comment
 
-    for (int i = 0; i < line_length; i++) {
+    for (int i = 0; i < line_length-1; i++) {
         if (line[i] == ';') {
             comment_index = i;
             break;
@@ -46,7 +47,9 @@ void Tokenizer::remove_comments(std::string& line) {
         line = "";
     }
 
-    line = line.substr(0, comment_index);
+    line = line.substr(0, comment_index+1);
+
+    return(line);
 }
 
 // remove leading whitespace from line
@@ -61,14 +64,15 @@ std::string Tokenizer::remove_whitespace(std::string line) {
             break; 
         }
     }
-
-    int trailing_index = 0;
-    for (int i = line_length-1; i >= 0; i--) {
+    
+    // trailing whitespace
+    int trailing_index = line.length()-1;
+    for (int i = trailing_index; i >= 0; i--) {
         if (line[i] != ' ') {
             trailing_index = i;
             break;
         }
     }
 
-    return line.substr(leading_index, trailing_index);
+    return line.substr(leading_index, trailing_index+1);
 }
