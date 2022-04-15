@@ -18,8 +18,8 @@ std::vector<std::string> Tokenizer::tokenize_line(std::string line) {
     std::string string_builder = ""; 
 
     int line_length = line.length();
-    for (int i = 0; i < line_length; i++) {
-        if ((line[i] == ' ' || line[i] == ',' || i == line_length-1) && string_builder != "" && string_builder != " ") {
+    for (int i = 0; i <= line_length; i++) {
+        if ((line[i] == ' ' || line[i] == ',' || i == line_length) && string_builder != "" && string_builder != " ") {
             tokenized_line.push_back(string_builder);
             string_builder = "";
             continue;
