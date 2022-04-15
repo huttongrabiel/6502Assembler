@@ -31,9 +31,10 @@ void SymbolTable::fill_symbol_table(std::ifstream& source_code) {
         trimmed_line = t.remove_comments(trimmed_line);
         std::vector<std::string> tokenized_line = t.tokenize_line(line);
 
-        for (auto const& token : tokenized_line) {
-            std::cout << token << " ";
-        }
+        Translate translate;
+        auto const standardized_instruction =  translate.standardize_instruction(tokenized_line);
+
+        std::cout << "STANDARD LINE: " << standardized_instruction << "\n";
 
         std::cout << std::endl;
     }

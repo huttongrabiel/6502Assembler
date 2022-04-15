@@ -9,6 +9,7 @@
 #include <map>
 #include <fstream>
 #include <Tokenizer.h>
+#include <Translate.h>
 
 class SymbolTable {
 public:
