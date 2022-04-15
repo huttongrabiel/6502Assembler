@@ -12,6 +12,8 @@ set(SRC src/SymbolTable.cpp
         src/Assemble.cpp
         src/Tokenizer.cpp
         src/Tokenizer.h
+        src/Translate.cpp
+        src/Translate.h
    )
 
 add_executable(Whuty6502Assembler ${SRC})
