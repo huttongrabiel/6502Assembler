@@ -3,11 +3,13 @@
 
 #include <iostream>
 #include <vector>
+#include <OpCodes.h>
 
 class Translate {
 public:
     Translate();
     ~Translate();
+    int translate_instruction_to_hex_opcode(std::string);
     std::string standardize_instruction(const std::vector<std::string>&);
 };
 

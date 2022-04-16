@@ -8,6 +8,15 @@ Translate::~Translate()
 {
 };
 
+int Translate::translate_instruction_to_hex_opcode(std::string instruction) {
+    OpCodes opCodes;
+    std::cout << instruction << std::endl;
+    if (opCodes.OpCodeMap.find(instruction) != opCodes.OpCodeMap.end()) {
+        return opCodes.OpCodeMap.find(instruction)->second;
+    }
+    return 45; // Arbitrary value that we know we don't want to see
+}
+
 std::string Translate::standardize_instruction(const std::vector<std::string>& instruction) {
     //["ADC","$XXXX", "X"]  -> "ADC XXXX,X" which is quickly realized as 0x7D
     
