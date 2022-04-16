@@ -13,7 +13,7 @@ public:
     std::string standardize_instruction(const std::vector<std::string>&);
 };
 
-class Helpers {
+class Helpers : public Translate {
 public:
     Helpers();
     ~Helpers();
