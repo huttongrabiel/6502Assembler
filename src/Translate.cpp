@@ -10,7 +10,6 @@ Translate::~Translate()
 
 int Translate::translate_instruction_to_hex_opcode(std::string instruction) {
     OpCodes opCodes;
-    std::cout << instruction << std::endl;
     if (opCodes.OpCodeMap.find(instruction) != opCodes.OpCodeMap.end()) {
         return opCodes.OpCodeMap.find(instruction)->second;
     }
