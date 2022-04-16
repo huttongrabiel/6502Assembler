@@ -8,11 +8,8 @@ Tokenizer::~Tokenizer()
 {
 };
 
-// split line into tokens
 std::vector<std::string> Tokenizer::tokenize_line(std::string line) {
-    // ADC $4400, X -> ["ADC","$4400","X"]
-    //                   ---           -  ADC X -> 7D
-   
+
     std::vector<std::string> tokenized_line;
    
     std::string string_builder = ""; 
@@ -24,6 +21,7 @@ std::vector<std::string> Tokenizer::tokenize_line(std::string line) {
             string_builder = "";
             continue;
         }
+
         if (line[i] != ' ') {
             string_builder.push_back(line[i]);
         }
@@ -52,8 +50,7 @@ std::string Tokenizer::remove_comments(std::string line) {
     return(line);
 }
 
-// remove leading whitespace from line
-// call before tokenize_line
+// Make sure this is called before tokenize_line
 std::string Tokenizer::remove_whitespace(std::string line) {
     // leading whitespace
     int leading_index = 0;
