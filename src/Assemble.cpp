@@ -1,5 +1,7 @@
 #include <iostream>
 #include <SymbolTable.h>
+#include <Tokenizer.h>
+#include <fstream>
 
 int main(int argc, char* argv[]) {
     std::ifstream source_code(argv[1]);
