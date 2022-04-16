@@ -25,17 +25,6 @@ void SymbolTable::fill_symbol_table(std::ifstream& source_code) {
             SymbolTable::insert(line.substr(0, line_length-1), program_counter);
         }
         program_counter++;
-
-        Tokenizer t;
-        auto trimmed_line = t.remove_whitespace(line);
-        trimmed_line = t.remove_comments(trimmed_line);
-        std::vector<std::string> tokenized_line = t.tokenize_line(line);
-        
-        Translate translate;
-        auto const standardized_instruction = translate.standardize_instruction(tokenized_line);
-        auto const res = translate.translate_instruction_to_hex_opcode(standardized_instruction);
-
-        std::cout << standardized_instruction << " : " << res << std::endl;;
     }
 }
 
