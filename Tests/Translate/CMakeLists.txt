@@ -7,17 +7,23 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 set(CMAKE_CXX_FLAGS "-g -Wall -std=c++17 -Werror -D CMAKE_CXX_COMPILER=/usr/bin/g++-11")
 
-set(SRC TestTranslateInstructionToHexOpcode.cpp 
-        ../../src/Translate.h
-        ../../src/Translate.cpp
-        ../../src/OpCodes.cpp
-        ../../src/OpCodes.h
+set( TestFiles 
+    TestTranslateInstructionToHexOpcode.cpp
+    TestStandardizeInstruction.cpp
+   )
+
+set( SRC
+    ../../src/Translate.h 
+    ../../src/Translate.cpp 
+    ../../src/OpCodes.cpp 
+    ../../src/OpCodes.h 
    )
 
 find_package(Catch2 3 REQUIRED)
 
-add_executable(Tests ${SRC})
+add_executable(Tests ${SRC} ${TestFiles})
 
-include_directories("${CMAKE_SOURCE_DIR}/../../src/")
+include_directories("${CMAKE_SOURCE_DIR}/../../src/"
+                    "${CMAKE_SOURCE_DIR}/")
 
 target_link_libraries(Tests PRIVATE Catch2::Catch2WithMain)
