@@ -84,6 +84,8 @@ int Tokenizer::index_of_oper(std::vector<std::string> tokenized_line) {
     for (int i = 0; i < tokenized_line_size; i++) {
         if (tokenized_line[i][0] == '$' || tokenized_line[i][0] == '#')
             oper_index = i;
+        else if (tokenized_line[i][0] == '(') 
+            oper_index = i+1;
     }
 
     return oper_index;
