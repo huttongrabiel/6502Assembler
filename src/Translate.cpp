@@ -56,7 +56,7 @@ std::string Translate::standardize_instruction(const std::vector<std::string>& i
 
 int Translate::oper_low_byte(const std::string oper) {
     int oper_length = oper.length();
-    std::string low_byte_string = oper.substr(oper_length-2, oper_length-1);
+    std::string low_byte_string = oper.substr(oper_length-2, 2);
 
     Helpers helpers;
 
@@ -71,23 +71,14 @@ int Translate::oper_low_byte(const std::string oper) {
 }
 
 int Translate::oper_high_byte(const std::string oper) {
-    std::string high_byte_string = ""; 
+    int start_index;
 
-    int oper_lenth = oper.length();
-    
-    int count = 0;
-    for (int i = 0; i < oper_length; i++) {
-        if (oper[i] == '$' || oper[i] == '#') {
-            continue;
-        }
+    if (oper[0] == '#') 
+        start_index = 2;
+    else
+        start_index = 1;
 
-        high_byte_string.push_back(oper[i]);
-        count++;
-        
-        if (count == 2) {
-            break;
-        }
-    }
+    std::string high_byte_string = oper.substr(start_index, 2);
 
     Helpers helpers;
 
