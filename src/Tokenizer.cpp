@@ -73,3 +73,18 @@ std::string Tokenizer::remove_whitespace(std::string line) {
 
     return line.substr(leading_index, trailing_index+1);
 }
+
+// Returns the index of the oper (address) in the toknized instruction.
+// If the instruction does not have an oper (ie. INX) the return value
+// is -1.
+int Tokenizer::index_of_oper(std::vector<std::string> tokenized_line) {
+    int oper_index = -1;
+    int tokenized_line_size = tokenized_line.size(); 
+
+    for (int i = 0; i < tokenized_line_size; i++) {
+        if (tokenized_line[i][0] == '$' || tokenized_line[i][0] == '#')
+            oper_index = i;
+    }
+
+    return oper_index;
+}
