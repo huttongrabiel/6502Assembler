@@ -54,6 +54,22 @@ std::string Translate::standardize_instruction(const std::vector<std::string>& i
     return instruction_builder;
 }
 
+int Translate::oper_low_byte(const std::string oper) {
+    int oper_length = oper.length();
+    std::string low_byte_string = oper.substr(oper_length-2, oper_length-1);
+
+    Helpers helpers;
+
+    int low_byte = helpers.address_as_int(low_byte_string);
+    
+    // If the oper is a zeropage ($56), we should return 0.
+    // $56 is the same as $5600 which means our LSByte is 0.
+    if (oper.length() <= 4)
+        return 0;
+
+    return low_byte;
+}
+
 int Translate::oper_high_byte(const std::string oper) {
     std::string high_byte_string = ""; 
 
