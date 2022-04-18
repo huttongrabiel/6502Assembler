@@ -54,6 +54,32 @@ std::string Translate::standardize_instruction(const std::vector<std::string>& i
     return instruction_builder;
 }
 
+int Translate::oper_high_byte(const std::string oper) {
+    std::string high_byte_string = ""; 
+
+    int oper_lenth = oper.length();
+    
+    int count = 0;
+    for (int i = 0; i < oper_length; i++) {
+        if (oper[i] == '$' || oper[i] == '#') {
+            continue;
+        }
+
+        high_byte_string.push_back(oper[i]);
+        count++;
+        
+        if (count == 2) {
+            break;
+        }
+    }
+
+    Helpers helpers;
+
+    int high_byte = helpers.address_as_int(high_byte_string);
+    
+    return high_byte;
+}
+
 Helpers::Helpers() 
 {
 };
