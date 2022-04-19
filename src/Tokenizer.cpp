@@ -97,7 +97,10 @@ std::string Tokenizer::oper(std::string oper_token) {
     if (oper_token[0] == '#')
         start_index = 2;
     else if (oper_token[0] == '(') {
-        start_index = 3; 
+        if (oper_token[1] == '#')
+            start_index = 3;
+        else
+            start_index = 2; 
     }
     
     int oper_length = oper_token.length()-start_index;
