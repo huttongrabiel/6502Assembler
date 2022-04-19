@@ -56,6 +56,10 @@ std::string Translate::standardize_instruction(const std::vector<std::string>& i
 
 int Translate::oper_low_byte(const std::string oper) {
     int oper_length = oper.length();
+
+    if (oper_length < 2)
+        return -1;
+
     std::string low_byte_string = oper.substr(oper_length-2, 2);
 
     Helpers helpers;
@@ -64,21 +68,18 @@ int Translate::oper_low_byte(const std::string oper) {
     
     // If the oper is a zeropage ($56), we should return 0.
     // $56 is the same as $5600 which means our LSByte is 0.
-    if (oper.length() <= 4)
+    if (oper.length() < 4)
         return 0;
 
     return low_byte;
 }
 
 int Translate::oper_high_byte(const std::string oper) {
-    int start_index;
+    if (oper.length() < 2) {
+        return -1;
+    }
 
-    if (oper[0] == '#') 
-        start_index = 2;
-    else
-        start_index = 1;
-
-    std::string high_byte_string = oper.substr(start_index, 2);
+    std::string high_byte_string = oper.substr(0, 2);
 
     Helpers helpers;
 
