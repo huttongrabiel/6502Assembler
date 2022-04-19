@@ -8,7 +8,8 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_FLAGS "-g -Wall -std=c++17 -Werror -D CMAKE_CXX_COMPILER=/usr/bin/g++-11")
 
 set( TestFiles 
-    TestIndexOfOper.cpp 
+    TestIndexOfOperInTokenizedLine.cpp 
+    TestOper.cpp
    )
 
 set( SRC
