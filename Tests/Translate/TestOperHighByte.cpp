@@ -4,8 +4,8 @@
 TEST_CASE( " 16 Bit Little Endian Most Significant Byte Extraction" ) {
     Translate translate;
 
-    REQUIRE( translate.oper_high_byte("8347") == 83 );
-    REQUIRE( translate.oper_high_byte("7263") == 72 );
-    REQUIRE( translate.oper_high_byte("38") == 38 );
-    REQUIRE( translate.oper_high_byte("98") == 98 );
+    REQUIRE( translate.oper_high_byte("8347") == 131 );
+    REQUIRE( translate.oper_high_byte("7263") == 114 );
+    REQUIRE( translate.oper_high_byte("38") == 56 );
+    REQUIRE( translate.oper_high_byte("98") == 152 );
 }

@@ -109,7 +109,7 @@ int TranslationHelpers::address_as_int(std::string& address) {
         }
     }
     
-    return address_int;
+    return std::stoi(address,0,16);
 }
 
 std::string TranslationHelpers::decimal_to_binary(int decimal_value) {

@@ -13,6 +13,7 @@ set( TestFiles
     TestOperLowByte.cpp
     TestOperHighByte.cpp
     TestHelperDecimalToBinary.cpp
+    TestTranslationHelperAddressAsInt.cpp
    )
 
 set( SRC
