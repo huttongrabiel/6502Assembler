@@ -20,7 +20,7 @@ class TranslationHelpers : public Translate {
 public:
     TranslationHelpers();
     ~TranslationHelpers();
-    int address_as_int(std::string&);
+    int address_as_int(std::string);
     std::string decimal_to_binary(int);
 };
 

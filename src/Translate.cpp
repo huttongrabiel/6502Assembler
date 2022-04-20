@@ -96,7 +96,7 @@ TranslationHelpers::~TranslationHelpers()
 {
 };
 
-int TranslationHelpers::address_as_int(std::string& address) {
+int TranslationHelpers::address_as_int(std::string address) {
     int address_int = 0;
     int multiple = 1; 
 
