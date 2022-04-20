@@ -11,6 +11,14 @@ int main(int argc, char* argv[]) {
         std::cerr <<  "ERROR: File not found. Check file path" << std::endl;
         exit(1);
     }
+    
+    if (!argv[2]) {
+        std::cerr << "ERROR: No executable file name provided. Assembler requires three arguments total." << std::endl;
+        exit(1);
+    }
+    
+    std::string binary_file_name = argv[2]; 
+    std::ofstream executable(binary_file_name);
 
     SymbolTable symbolTable;
 
@@ -44,8 +52,9 @@ int main(int argc, char* argv[]) {
 
         std::cout << standardized_instruction << " : " << instruction_hex_opcode << " " << oper_low_byte << " " << oper_high_byte << std::endl;
     }
-
+    
     source_code.close();
+    executable.close();
 
     return 0;    
 }
