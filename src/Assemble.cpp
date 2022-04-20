@@ -42,15 +42,19 @@ int main(int argc, char* argv[]) {
         std::string const oper = tokenizer.oper(tokenized_line[oper_index]);
 
         Translate translate;
+        TranslationHelpers translationHelpers;
     
+        auto const standardized_instruction = translate.standardize_instruction(tokenized_line);
+        int const instruction_hex_opcode = translate.translate_instruction_to_hex_opcode(standardized_instruction);
+ 
         // These return -1 when there is no oper found
         int const oper_low_byte = translate.oper_low_byte(oper);
         int const oper_high_byte = translate.oper_high_byte(oper);
+       
+        std::string const oper_low_byte_binary = translationHelpers.decimal_to_binary(oper_low_byte);
+        std::string const oper_high_byte_binary = translationHelpers.decimal_to_binary(oper_high_byte);
 
-        auto const standardized_instruction = translate.standardize_instruction(tokenized_line);
-        auto const instruction_hex_opcode = translate.translate_instruction_to_hex_opcode(standardized_instruction);
-
-        std::cout << standardized_instruction << " : " << instruction_hex_opcode << " " << oper_low_byte << " " << oper_high_byte << std::endl;
+        std::cout << standardized_instruction << " : " << instruction_hex_opcode << " " << oper_low_byte_binary << " " << oper_high_byte_binary << std::endl;
     }
     
     source_code.close();
