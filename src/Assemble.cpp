@@ -45,16 +45,24 @@ int main(int argc, char* argv[]) {
         TranslationHelpers translationHelpers;
     
         auto const standardized_instruction = translate.standardize_instruction(tokenized_line);
-        int const instruction_hex_opcode = translate.translate_instruction_to_hex_opcode(standardized_instruction);
+        int const instruction_opcode = translate.translate_instruction_to_hex_opcode(standardized_instruction);
+        std::string instruction_binary_opcode = translationHelpers.decimal_to_binary(instruction_opcode);
+
+        executable << instruction_binary_opcode << std::endl;
  
         // These return -1 when there is no oper found
         int const oper_low_byte = translate.oper_low_byte(oper);
         int const oper_high_byte = translate.oper_high_byte(oper);
-       
-        std::string const oper_low_byte_binary = translationHelpers.decimal_to_binary(oper_low_byte);
-        std::string const oper_high_byte_binary = translationHelpers.decimal_to_binary(oper_high_byte);
+        
+        if (oper_low_byte != 0) {
+            std::string const oper_low_byte_binary = translationHelpers.decimal_to_binary(oper_low_byte);
+            executable << oper_low_byte_binary << std::endl;
+        }
 
-        std::cout << standardized_instruction << " : " << instruction_hex_opcode << " " << oper_low_byte_binary << " " << oper_high_byte_binary << std::endl;
+        if (oper_high_byte != 0) {
+            std::string const oper_high_byte_binary = translationHelpers.decimal_to_binary(oper_high_byte);
+            executable << oper_high_byte_binary << std::endl;
+        }
     }
     
     source_code.close();
