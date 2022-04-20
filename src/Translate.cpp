@@ -111,3 +111,12 @@ int Helpers::address_as_int(std::string& address) {
     
     return address_int;
 }
+
+std::string Helpers::decimal_to_binary(int decimal_value) {
+    if (decimal_value < 0)
+        std::cerr << "Decimal Value is negative" << std::endl;
+
+    std::string result = std::bitset<8>(decimal_value).to_string();
+
+    return result;
+}

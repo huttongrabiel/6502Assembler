@@ -12,6 +12,7 @@ set( TestFiles
     TestStandardizeInstruction.cpp
     TestOperLowByte.cpp
     TestOperHighByte.cpp
+    TestHelperDecimalToBinary.cpp
    )
 
 set( SRC

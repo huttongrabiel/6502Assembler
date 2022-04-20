@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <OpCodes.h>
+#include <bitset>
 
 class Translate {
 public:
@@ -20,6 +21,7 @@ public:
     Helpers();
     ~Helpers();
     int address_as_int(std::string&);
+    std::string decimal_to_binary(int);
 };
 
 #endif
