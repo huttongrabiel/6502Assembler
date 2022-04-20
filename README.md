@@ -1,8 +1,23 @@
 # 6502 Assembler
 
-Simple 6502 Assembler Written in C++ to flex the programming muscles.  
+Basic 6502 Assembler. Needs plenty of work still :)   
 
-Should cover all of the 6502 instruction set, registers, branching, etc.  
+# TODO List
+- [ ] Convert non instruction set instructions (Labels)
+  - [ ] Parse them if on same line (START LDA $8374 -> START : ProgramCounter)
+  - [ ] Have translate look in labels if instruction not found
+  - [ ] Convert value to binary
+  - [ ] Output to file
+- [ ] Syntax Checking
+  - [ ] Parentheses
+  - [ ] Brackets
+- [ ] More Tests
+- [ ] Documentation
+  - [ ] Building
+  - [ ] Usage
+- [ ] Build Scripts
+  - [ ] Build Script for Tests
+  - [ ] Build Script That Builds Assembler and Tests
 
 # Resources Used  
 
