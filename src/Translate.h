@@ -16,10 +16,10 @@ public:
     int oper_high_byte(const std::string);
 };
 
-class Helpers : public Translate {
+class TranslationHelpers : public Translate {
 public:
-    Helpers();
-    ~Helpers();
+    TranslationHelpers();
+    ~TranslationHelpers();
     int address_as_int(std::string&);
     std::string decimal_to_binary(int);
 };

@@ -62,9 +62,9 @@ int Translate::oper_low_byte(const std::string oper) {
 
     std::string low_byte_string = oper.substr(oper_length-2, 2);
 
-    Helpers helpers;
+    TranslationHelpers translationHelpers;
 
-    int low_byte = helpers.address_as_int(low_byte_string);
+    int low_byte = translationHelpers.address_as_int(low_byte_string);
     
     // If the oper is a zeropage ($56), we should return 0.
     // $56 is the same as $5600 which means our LSByte is 0.
@@ -81,22 +81,22 @@ int Translate::oper_high_byte(const std::string oper) {
 
     std::string high_byte_string = oper.substr(0, 2);
 
-    Helpers helpers;
+    TranslationHelpers translationHelpers;
 
-    int high_byte = helpers.address_as_int(high_byte_string);
+    int high_byte = translationHelpers.address_as_int(high_byte_string);
     
     return high_byte;
 }
 
-Helpers::Helpers() 
+TranslationHelpers::TranslationHelpers() 
 {
 };
 
-Helpers::~Helpers()
+TranslationHelpers::~TranslationHelpers()
 {
 };
 
-int Helpers::address_as_int(std::string& address) {
+int TranslationHelpers::address_as_int(std::string& address) {
     int address_int = 0;
     int multiple = 1; 
 
@@ -112,7 +112,7 @@ int Helpers::address_as_int(std::string& address) {
     return address_int;
 }
 
-std::string Helpers::decimal_to_binary(int decimal_value) {
+std::string TranslationHelpers::decimal_to_binary(int decimal_value) {
     if (decimal_value < 0)
         std::cerr << "Decimal Value is negative" << std::endl;
 
