@@ -24,6 +24,9 @@ std::string Translate::standardize_instruction(const std::vector<std::string>& i
     for (auto const& character : instruction[0]) {
         instruction_builder.push_back(character);
     }
+
+    if (instruction.size() <= 1)
+        return instruction_builder;
     
     instruction_builder.push_back(' ');
     
