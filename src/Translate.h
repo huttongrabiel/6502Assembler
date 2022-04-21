@@ -5,6 +5,7 @@
 #include <vector>
 #include <OpCodes.h>
 #include <bitset>
+#include <SymbolTable.h>
 
 class Translate {
 public:

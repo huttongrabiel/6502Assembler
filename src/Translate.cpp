@@ -10,10 +10,22 @@ Translate::~Translate()
 
 int Translate::translate_instruction_to_hex_opcode(std::string instruction) {
     OpCodes opCodes;
-    if (opCodes.OpCodeMap.find(instruction) != opCodes.OpCodeMap.end()) {
-        return opCodes.OpCodeMap.find(instruction)->second;
+    
+    auto opcode = opCodes.OpCodeMap.find(instruction);
+    if (opcode != opCodes.OpCodeMap.end()) {
+        return opcode->second;
     }
-    return 45; // Arbitrary value that we know we don't want to see
+
+    SymbolTable symbolTable;
+
+    auto label = symbolTable.symbol_table.find(instruction);
+    if (label != symbolTable.symbol_table.end()) {
+        return label->second;
+    }
+    
+    //FIXME: Does not print the correct line at which the error occured (always prints 1).
+    std::cerr << "ERROR: Instruction " << instruction << " not found at line - " << symbolTable.program_counter << std::endl;
+    exit(1);
 }
 
 std::string Translate::standardize_instruction(const std::vector<std::string>& instruction) {
