@@ -1,5 +1,6 @@
 #include <catch2/catch_test_macros.hpp>
 #include <Translate.h>
+#include <SymbolTable.h>
 
 TEST_CASE( "Translate Instruction to Its OpCode in Hex" ) {
     Translate translate;

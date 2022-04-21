@@ -21,6 +21,8 @@ set( SRC
     ../../src/Translate.cpp 
     ../../src/OpCodes.cpp 
     ../../src/OpCodes.h 
+    ../../src/SymbolTable.cpp
+    ../../src/SymbolTable.h
    )
 
 find_package(Catch2 3 REQUIRED)
