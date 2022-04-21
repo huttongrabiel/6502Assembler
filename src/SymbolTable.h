@@ -23,7 +23,6 @@ public:
     void insert(SymbolName, ProgramLine);
     void fill_symbol_table(std::ifstream&);
     void print_symbol_table();
-private:
     long long program_counter = 0x01;
 };
 
