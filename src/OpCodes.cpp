@@ -17,7 +17,7 @@ OpCodes::~OpCodes()
    ADC $8570 X. No comma. Am deciding on whether to change this or not.
 */
 
-std::map<std::string, int> OpCodes::OpCodeMap = {
+std::map<const std::string, const int> OpCodes::OpCodeMap = {
     {"ADC #", 0x69},             // immediate
     {"ADC $XX", 0x65},           // zeropage
     {"ADC $XX X", 0x75},         // zeropage,X

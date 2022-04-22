@@ -13,7 +13,7 @@ class OpCodes {
 public: 
     OpCodes();
     ~OpCodes();
-    static std::map<std::string, int> OpCodeMap;
+    static std::map<const std::string, const int> OpCodeMap;
 };
 
 #endif //INC_6502ASSEMBLER_OPCODES_H
