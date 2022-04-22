@@ -12,8 +12,10 @@ SymbolTable::~SymbolTable()
 {
 };
 
+std::map<const std::string, const int> SymbolTable::symbol_table;
+
 void SymbolTable::insert(SymbolName symbol_name, ProgramLine program_line) {
-    symbol_table.insert(std::pair<SymbolName, ProgramLine>(symbol_name, program_line));
+    symbol_table.insert({symbol_name, program_line});
 }
 
 void SymbolTable::fill_symbol_table(std::ifstream& source_code) {

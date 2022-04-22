@@ -13,17 +13,19 @@
 
 class SymbolTable {
 public:
-    typedef std::map<const std::string, const long long> SymbolTableMap;
+    typedef std::map<const std::string, const int> SymbolTableMap;
     typedef std::string SymbolName;
-    typedef long long ProgramLine;
+    typedef int ProgramLine;
 
     SymbolTable();
     ~SymbolTable();
-    SymbolTableMap symbol_table;
+
     void insert(SymbolName, ProgramLine);
     void fill_symbol_table(std::ifstream&);
     void print_symbol_table();
     bool is_label(std::string);
+
+    static SymbolTableMap symbol_table;
     long long program_counter = 0x01;
 };
 
