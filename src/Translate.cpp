@@ -15,17 +15,13 @@ int Translate::translate_instruction_to_hex_opcode(std::string instruction) {
     if (opcode != opCodes.OpCodeMap.end()) {
         return opcode->second;
     }
-
-    SymbolTable symbolTable;
-
-    auto label = symbolTable.symbol_table.find(instruction);
-    if (label != symbolTable.symbol_table.end()) {
-        return label->second;
+    else {
+         //FIXME: Does not print the correct line at which the error occured (always prints 1).
+        std::cerr << "ERROR: Instruction " << instruction << " not found at line - " << std::endl;
+        std::cerr << "If the offending line is a branch instruction, check that you created the label." 
+                        " If the offending line is an instruction, check your spelling and syntax for that instruction" << std::endl;
+        return 1;
     }
-    
-    //FIXME: Does not print the correct line at which the error occured (always prints 1).
-    std::cerr << "ERROR: Instruction " << instruction << " not found at line - " << symbolTable.program_counter << std::endl;
-    exit(1);
 }
 
 std::string Translate::standardize_instruction(const std::vector<std::string>& instruction) {
@@ -128,8 +124,9 @@ int TranslationHelpers::address_as_int(std::string address) {
 }
 
 std::string TranslationHelpers::decimal_to_binary(int decimal_value) {
-    if (decimal_value < 0)
+    if (decimal_value < 0) {
         std::cerr << "Decimal Value is negative" << std::endl;
+    }
 
     std::string result = std::bitset<8>(decimal_value).to_string();
 

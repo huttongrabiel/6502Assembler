@@ -21,15 +21,16 @@ int main(int argc, char* argv[]) {
     std::ofstream executable(binary_file_name);
 
     SymbolTable symbolTable;
-
-    symbolTable.fill_symbol_table(source_code);
     
+    symbolTable.fill_symbol_table(source_code);
+
     // Clear eofbit and seek to 0th position in source file 
     source_code.clear();
     source_code.seekg(0);
 
     std::string line;
 
+    Tokenizer tokenizer;
     while (std::getline(source_code, line)) {
 
         if (symbolTable.is_label(line)) {
@@ -39,7 +40,7 @@ int main(int argc, char* argv[]) {
         auto trimmed_line = tokenizer.remove_whitespace(line);
         trimmed_line = tokenizer.remove_comments(trimmed_line);
         std::vector<std::string> const tokenized_line = tokenizer.tokenize_line(trimmed_line);
-        
+
         int const oper_index = tokenizer.index_of_oper_in_tokenized_line(tokenized_line);
 
         Translate translate;
