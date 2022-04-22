@@ -31,7 +31,10 @@ int main(int argc, char* argv[]) {
     std::string line;
 
     while (std::getline(source_code, line)) {
-        Tokenizer tokenizer;
+
+        if (symbolTable.is_label(line)) {
+            continue;
+        }
        
         auto trimmed_line = tokenizer.remove_whitespace(line);
         trimmed_line = tokenizer.remove_comments(trimmed_line);

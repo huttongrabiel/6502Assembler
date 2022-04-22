@@ -20,11 +20,12 @@ void SymbolTable::fill_symbol_table(std::ifstream& source_code) {
     std::string line;
 
     while (std::getline(source_code, line)) {
-        auto const line_length = line.length();
-        if (line[line_length-1] == ':') {
+        if (is_label(line)) { 
+            auto const line_length = line.length();
+            
             SymbolTable::insert(line.substr(0, line_length-1), program_counter);
+            program_counter++;
         }
-        program_counter++;
     }
 }
 
@@ -32,4 +33,14 @@ void SymbolTable::print_symbol_table() {
     for (auto const& [key, val] : symbol_table) {
         std::cout << key << " : " << val << std::endl;
     }
+}
+
+bool SymbolTable::is_label(std::string line) {
+    OpCodes opCodes;
+    
+    bool has_colon = line[line.length()-1] == ':';
+    if (has_colon)
+        return true;
+    
+    return false;
 }
