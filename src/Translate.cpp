@@ -26,15 +26,15 @@ int Translate::translate_instruction_to_hex_opcode(std::string instruction) {
 
 std::string Translate::standardize_instruction(const std::vector<std::string>& instruction) {
     //["ADC","$XXXX", "X"]  -> "ADC XXXX,X" which is quickly realized as 0x7D
-    std::set<std::string> branch_instructions {"BPL", "BMI", "BVC", "BVS", "BCC", "BCS", "BNE", "BEQ"};
+    TranslationHelpers translationHelpers;
 
     std::string instruction_builder;
 
     for (auto const& character : instruction[0]) {
         instruction_builder.push_back(character);
     }
-
-    if (branch_instructions.count(instruction_builder)) 
+    
+    if (translationHelpers.is_branch_instruction(instruction_builder))
         return instruction_builder;
 
     if (instruction.size() <= 1)
