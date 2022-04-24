@@ -2,6 +2,9 @@
 
 Basic 6502 Assembler. Needs plenty of work still :)   
 
+# How To Build  
+See [Build Instructions](Documentation/BuildInstructions.md)  
+
 # TODO List
 - [ ] Convert non instruction set instructions (Labels)
   - [X] Handle own line labels with colons (ie LOOP:)
