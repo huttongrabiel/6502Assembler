@@ -24,9 +24,9 @@ set( SRC
 
 find_package(Catch2 3 REQUIRED)
 
-add_executable(Tests ${SRC} ${TestFiles})
+add_executable(SymbolTableTests ${SRC} ${TestFiles})
 
 include_directories("${CMAKE_SOURCE_DIR}/../../src/"
                     "${CMAKE_SOURCE_DIR}/")
 
-target_link_libraries(Tests PRIVATE Catch2::Catch2WithMain)
+target_link_libraries(SymbolTableTests PRIVATE Catch2::Catch2WithMain)
