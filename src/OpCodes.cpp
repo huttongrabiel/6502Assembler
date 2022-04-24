@@ -42,7 +42,6 @@ std::map<const std::string, const int> OpCodes::OpCodeMap = {
     {"ASL $XXXX", 0x0E},
     {"ASL $XXXX X", 0x1E},
     
-    // FIXME: This might need to change and have a relative oper not sure
     {"BCC", 0x90},
 
     {"BCS", 0xB0},
