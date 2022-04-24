@@ -14,9 +14,9 @@ See [Build Instructions](Documentation/BuildInstructions.md)
   - [ ] Parentheses
   - [ ] Brackets
 - [ ] More Tests
-- [ ] Documentation
-  - [ ] Building
-  - [ ] Usage
+- [X] Documentation
+  - [X] Building
+  - [X] Usage
 - [X] Build Scripts
   - [X] Build Script for Tests
   - [X] Build Script That Builds Assembler and Tests
