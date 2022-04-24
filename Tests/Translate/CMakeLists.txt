@@ -14,6 +14,7 @@ set( TestFiles
     TestOperHighByte.cpp
     TestHelperDecimalToBinary.cpp
     TestTranslationHelperAddressAsInt.cpp
+    TestTranslationHelperIsBranchInstruction.cpp
    )
 
 set( SRC

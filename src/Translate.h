@@ -5,6 +5,7 @@
 #include <vector>
 #include <OpCodes.h>
 #include <bitset>
+#include <set>
 #include <SymbolTable.h>
 
 class Translate {
@@ -23,6 +24,7 @@ public:
     ~TranslationHelpers();
     int address_as_int(std::string);
     std::string decimal_to_binary(int);
+    bool is_branch_instruction(std::string);
 };
 
 #endif

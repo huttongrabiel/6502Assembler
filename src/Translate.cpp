@@ -136,3 +136,12 @@ std::string TranslationHelpers::decimal_to_binary(int decimal_value) {
 
     return result;
 }
+
+bool TranslationHelpers::is_branch_instruction(std::string instruction) {
+    std::set<std::string> branch_instructions {"BPL", "BMI", "BVC", "BVS", "BCC", "BCS", "BNE", "BEQ"};
+    
+    if (branch_instructions.count(instruction))
+        return true;
+
+    return false;
+}
