@@ -4,10 +4,9 @@ Basic 6502 Assembler. Needs plenty of work still :)
 
 # TODO List
 - [ ] Convert non instruction set instructions (Labels)
+  - [X] Handle own line labels with colons (ie LOOP:)
   - [ ] Parse them if on same line (START LDA $8374 -> START : ProgramCounter)
-  - [ ] Have translate look in labels if instruction not found
-  - [ ] Convert value to binary
-  - [ ] Output to file
+  - [ ] Have translate look in labels for string that follows a branch instruction
 - [ ] Syntax Checking
   - [ ] Parentheses
   - [ ] Brackets
@@ -15,9 +14,9 @@ Basic 6502 Assembler. Needs plenty of work still :)
 - [ ] Documentation
   - [ ] Building
   - [ ] Usage
-- [ ] Build Scripts
-  - [ ] Build Script for Tests
-  - [ ] Build Script That Builds Assembler and Tests
+- [X] Build Scripts
+  - [X] Build Script for Tests
+  - [X] Build Script That Builds Assembler and Tests
 
 # Resources Used  
 
