@@ -112,7 +112,13 @@ std::string Translate::label_address_binary(const std::vector<std::string> branc
     auto const label_address = symbolTable.symbol_table.find(label);
 
     if (label_address == symbolTable.symbol_table.end()) {
-        std::cerr << "ERROR: Label " << label << " not found. Did you forget to create this label?" << std::endl;
+        std::string string_builder = "";
+        for (auto const token : branch_instruction) {
+            string_builder += token;
+            string_builder += " ";
+        }
+        std::cerr << "ERROR: Label " << label << " not found in instruction:\n     '" << string_builder << "'" << std::endl;
+        std::cerr << "Did you forget to create this label?" << std::endl;
         exit(1);
     }
 
