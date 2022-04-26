@@ -103,6 +103,24 @@ int Translate::oper_high_byte(const std::string oper) {
     return high_byte;
 }
 
+std::string Translate::label_address_binary(const std::vector<std::string> branch_instruction) {
+    SymbolTable symbolTable;
+    TranslationHelpers translationHelpers;
+    
+    auto const label = branch_instruction[1];
+
+    auto const label_address = symbolTable.symbol_table.find(label);
+
+    if (label_address == symbolTable.symbol_table.end()) {
+        std::cerr << "ERROR: Label " << label << " not found. Did you forget to create this label?" << std::endl;
+        exit(1);
+    }
+
+    std::string const binary_address = translationHelpers.decimal_to_binary(label_address->second);
+    
+    return binary_address;
+}
+
 TranslationHelpers::TranslationHelpers() 
 {
 };
