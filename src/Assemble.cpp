@@ -31,6 +31,9 @@ int main(int argc, char* argv[]) {
     std::string line;
 
     Tokenizer tokenizer;
+    Translate translate;
+    TranslationHelpers translationHelpers;
+
     while (std::getline(source_code, line)) {
 
         if (symbolTable.is_label(line)) {
@@ -43,9 +46,6 @@ int main(int argc, char* argv[]) {
 
         int const oper_index = tokenizer.index_of_oper_in_tokenized_line(tokenized_line);
 
-        Translate translate;
-        TranslationHelpers translationHelpers;
-    
         auto const standardized_instruction = translate.standardize_instruction(tokenized_line);
         int const instruction_opcode = translate.translate_instruction_to_hex_opcode(standardized_instruction); // returns a hex value, not decimal
         std::string instruction_binary_opcode = translationHelpers.decimal_to_binary(instruction_opcode);
@@ -68,6 +68,12 @@ int main(int argc, char* argv[]) {
                 executable << oper_high_byte_binary << std::endl;
             }
         }
+
+        if (translationHelpers.is_branch_instruction(tokenized_line[0])) {
+            std::string const label_address_binary = translate.label_address_binary(tokenized_line);
+            executable << label_address_binary << std::endl;
+        }
+
     }
     
     source_code.close();
