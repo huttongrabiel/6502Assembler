@@ -13,6 +13,7 @@ SymbolTable::~SymbolTable()
 };
 
 std::map<const std::string, const int> SymbolTable::symbol_table;
+int program_counter;
 
 void SymbolTable::insert(SymbolName symbol_name, ProgramLine program_line) {
     symbol_table.insert({symbol_name, program_line});
