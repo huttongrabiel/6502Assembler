@@ -6,10 +6,10 @@ Basic 6502 Assembler. Needs plenty of work still :)
 See [Build Instructions](Documentation/BuildInstructions.md)  
 
 # TODO List
-- [ ] Convert non instruction set instructions (Labels)
+- [X] Convert non instruction set instructions (Labels)
   - [X] Handle own line labels with colons (ie LOOP:)
   - [X] Have translate look in labels for string that follows a branch instruction
-  - [ ] Correct labels having wrong value pair (fix program counter incrementation)
+  - [X] Correct labels having wrong value pair (fix program counter incrementation)
 - [ ] Syntax Checking
   - [ ] Parentheses
   - [ ] Brackets
