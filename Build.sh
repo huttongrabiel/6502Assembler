@@ -22,6 +22,9 @@ TESTS=(Tokenizer Translate SymbolTable)
 
 for test in ${TESTS[@]}; do
     printf "${YELLOW}${test} Tests \n======================================================${WHITE}\n\n"
+    if [ ! -d $SCRIPT_DIR/Tests/$test/Build ]; then
+        mkdir $SCRIPT_DIR/Tests/$test/Build
+    fi
     cd $SCRIPT_DIR/Tests/$test/Build
     cmake ..
     make
@@ -31,6 +34,10 @@ done
 printf "\n"
 printf "${YELLOW}[BUILDING ASSEMBLER]${WHITE}\n"
 printf "\n"
+
+if [ ! -d Build ]; then
+    mkdir $SCRIPT_DIR/Build
+fi
 
 cd $SCRIPT_DIR/Build
 cmake ..
