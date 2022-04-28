@@ -8,7 +8,6 @@ See [Build Instructions](Documentation/BuildInstructions.md)
 # TODO List
 - [ ] Convert non instruction set instructions (Labels)
   - [X] Handle own line labels with colons (ie LOOP:)
-  - [ ] Parse them if on same line (START LDA $8374 -> START : ProgramCounter)
   - [X] Have translate look in labels for string that follows a branch instruction
   - [ ] Correct labels having wrong value pair (fix program counter incrementation)
 - [ ] Syntax Checking
