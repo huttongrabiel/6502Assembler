@@ -14,22 +14,26 @@ trap 'printf "${RED}ERROR: \"${last_command}\" command failed with exit code $?.
 
 cd $SCRIPT_DIR
 
-printf "\n"
-printf "${YELLOW}[RUNNING TESTS]${WHITE}\n"
-printf "\n"
+if [ $1 == "--tests" ]; then
 
-TESTS=(Tokenizer Translate SymbolTable)
+    printf "\n"
+    printf "${YELLOW}[RUNNING TESTS]${WHITE}\n"
+    printf "\n"
 
-for test in ${TESTS[@]}; do
-    printf "${YELLOW}${test} Tests \n======================================================${WHITE}\n\n"
-    if [ ! -d $SCRIPT_DIR/Tests/$test/Build ]; then
-        mkdir $SCRIPT_DIR/Tests/$test/Build
-    fi
-    cd $SCRIPT_DIR/Tests/$test/Build
-    cmake ..
-    make
-    ./${test}Tests
-done
+    TESTS=(Tokenizer Translate SymbolTable)
+
+    for test in ${TESTS[@]}; do
+        printf "${YELLOW}${test} Tests \n======================================================${WHITE}\n\n"
+        if [ ! -d $SCRIPT_DIR/Tests/$test/Build ]; then
+            mkdir $SCRIPT_DIR/Tests/$test/Build
+        fi
+        cd $SCRIPT_DIR/Tests/$test/Build
+        cmake ..
+        make
+        ./${test}Tests
+    done
+
+fi
 
 printf "\n"
 printf "${YELLOW}[BUILDING ASSEMBLER]${WHITE}\n"
