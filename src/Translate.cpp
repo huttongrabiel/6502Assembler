@@ -117,7 +117,7 @@ std::string Translate::label_address_binary(const std::vector<std::string> branc
             string_builder += token;
             string_builder += " ";
         }
-        std::cerr << "ERROR: Label " << label << " not found in instruction:\n     '" << string_builder << "'" << std::endl;
+        std::cerr << "ERROR in " << __FILE__ << " at line " << __LINE__ << ". \nOffending instruction " << label << " not found in instruction:\n     '" << string_builder << "'" << std::endl;
         std::cerr << "Did you forget to create this label?" << std::endl;
         exit(1);
     }
