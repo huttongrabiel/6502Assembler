@@ -26,8 +26,7 @@ public:
     bool is_label(std::string);
 
     static SymbolTableMap symbol_table;
-private:
-    int program_counter { 0x01 };
+    static int m_program_counter;
 };
 
 #endif //SYSTEMMONITOR_SYMBOLTABLE_H
