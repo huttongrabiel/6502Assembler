@@ -12,11 +12,11 @@ class Translate {
 public:
     Translate();
     ~Translate();
-    int translate_instruction_to_hex_opcode(std::string);
+    int translate_instruction_to_hex_opcode(std::string, int);
     std::string standardize_instruction(const std::vector<std::string>&);
     int oper_low_byte(const std::string);
     int oper_high_byte(const std::string);
-    std::string label_address_binary(const std::vector<std::string>);
+    std::string label_address_binary(const std::vector<std::string>, int);
 };
 
 class TranslationHelpers : public Translate {

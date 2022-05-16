@@ -50,7 +50,7 @@ int main(int argc, char* argv[]) {
         int const oper_index = tokenizer.index_of_oper_in_tokenized_line(tokenized_line);
 
         auto const standardized_instruction = translate.standardize_instruction(tokenized_line);
-        int const instruction_opcode = translate.translate_instruction_to_hex_opcode(standardized_instruction); // returns a hex value, not decimal
+        int const instruction_opcode = translate.translate_instruction_to_hex_opcode(standardized_instruction, SymbolTable::m_program_counter); // returns a hex value, not decimal
         std::string instruction_binary_opcode = translationHelpers.decimal_to_binary(instruction_opcode);
 
         executable << instruction_binary_opcode << std::endl;

@@ -8,9 +8,10 @@ Translate::~Translate()
 {
 };
 
-int Translate::translate_instruction_to_hex_opcode(std::string instruction) {
+int Translate::translate_instruction_to_hex_opcode(std::string instruction, int program_counter) {
+
     OpCodes opCodes;
-    
+
     auto opcode = opCodes.OpCodeMap.find(instruction);
     if (opcode != opCodes.OpCodeMap.end()) {
         return opcode->second;
