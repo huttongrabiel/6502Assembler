@@ -1,21 +1,8 @@
-//
-// Created by whuty on 4/9/22.
-//
+/*
+ * Copyright 2022, Hutton Grabiel
+ */
 
 #include <OpCodes.h>
-
-OpCodes::OpCodes()
-{
-};
-
-OpCodes::~OpCodes()
-{
-};
-
-/* Quick note on the format of the instructions. Typically instructions
-   look like ADC $8570,X but ours will look be tokenized to look like 
-   ADC $8570 X. No comma. Am deciding on whether to change this or not.
-*/
 
 std::map<const std::string, const int> OpCodes::OpCodeMap = {
     {"ADC #", 0x69},             // immediate
