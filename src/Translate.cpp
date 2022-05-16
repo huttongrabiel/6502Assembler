@@ -1,3 +1,7 @@
+/*
+ * Copyright 2022, Hutton Grabiel
+ */
+
 #include <Translate.h>
 
 int Translate::translate_instruction_to_hex_opcode(std::string const& instruction, int program_counter) {

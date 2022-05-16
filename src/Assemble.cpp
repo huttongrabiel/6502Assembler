@@ -1,5 +1,8 @@
+/*
+ * Copyright 2022, Hutton Grabiel
+ */
+
 #include <iostream>
-#include <fstream>
 #include <SymbolTable.h>
 #include <Tokenizer.h>
 #include <Translate.h>

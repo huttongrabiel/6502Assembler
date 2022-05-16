@@ -1,3 +1,7 @@
+/*
+ * Copyright 2022, Hutton Grabiel
+ */
+
 #ifndef TRANSLATE_H
 #define TRANSLATE_H
 
