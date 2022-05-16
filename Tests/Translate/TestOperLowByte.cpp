@@ -2,10 +2,8 @@
 #include <Translate.h>
 
 TEST_CASE( "16 Bit Little Endian Least Significant Byte Extraction" ) {
-    Translate translate;
-
-    REQUIRE( translate.oper_low_byte("8347") == 71 );
-    REQUIRE( translate.oper_low_byte("7263") == 99 );
-    REQUIRE( translate.oper_low_byte("38") == 0 );
-    REQUIRE( translate.oper_low_byte("98") == 0 );
+    REQUIRE( Translate::oper_low_byte("8347") == 71 );
+    REQUIRE( Translate::oper_low_byte("7263") == 99 );
+    REQUIRE( Translate::oper_low_byte("38") == 0 );
+    REQUIRE( Translate::oper_low_byte("98") == 0 );
 }
