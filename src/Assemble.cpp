@@ -8,7 +8,7 @@ int main(int argc, char* argv[]) {
     std::ifstream source_code(argv[1]);
 
     if (!source_code.is_open()) {
-        std::cerr <<  "ERROR: File not found. Check file path" << std::endl;
+        std::cerr <<  "ERROR: File '" << argv[1] << "' not found. Check file path." << std::endl;
         exit(1);
     }
     
