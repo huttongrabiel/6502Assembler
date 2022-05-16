@@ -34,12 +34,15 @@ int main(int argc, char* argv[]) {
     Translate translate;
     TranslationHelpers translationHelpers;
 
+    SymbolTable::m_program_counter = 1;
+
     while (std::getline(source_code, line)) {
 
         if (symbolTable.is_label(line)) {
+            SymbolTable::m_program_counter++;
             continue;
         }
-       
+
         auto trimmed_line = tokenizer.remove_whitespace(line);
         trimmed_line = tokenizer.remove_comments(trimmed_line);
         std::vector<std::string> const tokenized_line = tokenizer.tokenize_line(trimmed_line);
@@ -73,6 +76,8 @@ int main(int argc, char* argv[]) {
             std::string const label_address_binary = translate.label_address_binary(tokenized_line);
             executable << label_address_binary << std::endl;
         }
+
+        SymbolTable::m_program_counter++;
 
     }
     
