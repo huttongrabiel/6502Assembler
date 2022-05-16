@@ -21,45 +21,48 @@ int main(int argc, char* argv[]) {
     std::ofstream executable(binary_file_name);
 
     SymbolTable symbolTable;
-    
-    symbolTable.fill_symbol_table(source_code);
-
-    // Clear eofbit and seek to 0th position in source file 
-    source_code.clear();
-    source_code.seekg(0);
-
-    std::string line;
-
     Tokenizer tokenizer;
     Translate translate;
     TranslationHelpers translationHelpers;
 
+    // Add label key values to symbol_table
+    symbolTable.fill_symbol_table(source_code);
+
+    // Reset the .asm file to read starting at 0th position
+    source_code.clear();
+    source_code.seekg(0);
+
     SymbolTable::m_program_counter = 1;
 
-    while (std::getline(source_code, line)) {
+    std::string buffer;
+    while (std::getline(source_code, buffer)) {
 
-        if (symbolTable.is_label(line)) {
+        // Labels are already handled in earlier fill_symbol_table call
+        if (symbolTable.is_label(buffer)) {
             SymbolTable::m_program_counter++;
             continue;
         }
 
-        auto trimmed_line = tokenizer.remove_whitespace(line);
+        // Lines 46-55 parse the line into usable variables
+        auto trimmed_line = tokenizer.remove_whitespace(buffer);
         trimmed_line = tokenizer.remove_comments(trimmed_line);
         std::vector<std::string> const tokenized_line = tokenizer.tokenize_line(trimmed_line);
 
         int const oper_index = tokenizer.index_of_oper_in_tokenized_line(tokenized_line);
 
         auto const standardized_instruction = translate.standardize_instruction(tokenized_line);
-        int const instruction_opcode = translate.translate_instruction_to_hex_opcode(standardized_instruction, SymbolTable::m_program_counter); // returns a hex value, not decimal
-        std::string instruction_binary_opcode = translationHelpers.decimal_to_binary(instruction_opcode);
+        int const instruction_opcode = translate.translate_instruction_to_hex_opcode(standardized_instruction, SymbolTable::m_program_counter);
+        std::string binary_instruction_opcode = translationHelpers.decimal_to_binary(instruction_opcode);
 
-        executable << instruction_binary_opcode << std::endl;
-        
+        executable << binary_instruction_opcode << std::endl;
+
+        // oper_index returns -1 if no oper is found
         if (oper_index != -1) {
             std::string const oper = tokenizer.oper(tokenized_line[oper_index]);
-            // These return -1 when there is no oper found
             int const oper_low_byte = translate.oper_low_byte(oper);
             int const oper_high_byte = translate.oper_high_byte(oper);
+
+            // oper_low_byte and oper_high_byte return -1 if there is no oper
         
             if (oper_low_byte > 0) {
                 std::string const oper_low_byte_binary = translationHelpers.decimal_to_binary(oper_low_byte);
@@ -72,9 +75,10 @@ int main(int argc, char* argv[]) {
             }
         }
 
+        // Branch instructions are handled separately due to the need to lookup the label in the symbol table
         if (translationHelpers.is_branch_instruction(tokenized_line[0])) {
-            std::string const label_address_binary = translate.label_address_binary(tokenized_line, SymbolTable::m_program_counter);
-            executable << label_address_binary << std::endl;
+            std::string const binary_address_of_label = translate.label_address_binary(tokenized_line, SymbolTable::m_program_counter);
+            executable << binary_address_of_label << std::endl;
         }
 
         SymbolTable::m_program_counter++;
