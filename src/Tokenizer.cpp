@@ -1,22 +1,18 @@
+/*
+ * Copyright 2022, Hutton Grabiel
+ */
+
 #include <Tokenizer.h>
 
-Tokenizer::Tokenizer()
-{
-};
-
-Tokenizer::~Tokenizer()
-{
-};
-
-std::vector<std::string> Tokenizer::tokenize_line(std::string line) {
+std::vector<std::string> Tokenizer::tokenize_line(std::string const& line) {
 
     std::vector<std::string> tokenized_line;
    
-    std::string string_builder = ""; 
+    std::string string_builder;
 
-    int line_length = line.length();
-    for (int i = 0; i <= line_length; i++) {
-        if ((line[i] == ' ' || line[i] == ',' || i == line_length) && string_builder != "" && string_builder != " ") {
+    size_t line_length = line.length();
+    for (size_t i = 0; i <= line_length; i++) {
+        if ((line[i] == ' ' || line[i] == ',' || i == line_length) && !string_builder.empty() && string_builder != " ") {
             tokenized_line.push_back(string_builder);
             string_builder = "";
             continue;
@@ -31,10 +27,10 @@ std::vector<std::string> Tokenizer::tokenize_line(std::string line) {
 }
 
 std::string Tokenizer::remove_comments(std::string line) {
-    int line_length = line.length();
-    int comment_index = line_length-1; // EOL in case no comment
+    size_t const line_length = line.length();
+    size_t comment_index = line_length-1; // EOL in case no comment
 
-    for (int i = 0; i < line_length-1; i++) {
+    for (size_t i = 0; i < line_length-1; i++) {
         if (line[i] == ';') {
             comment_index = i;
             break;
@@ -53,9 +49,9 @@ std::string Tokenizer::remove_comments(std::string line) {
 // Make sure this is called before tokenize_line
 std::string Tokenizer::remove_whitespace(std::string line) {
     // leading whitespace
-    int leading_index = 0;
-    int line_length = line.length();
-    for (int i = 0; i < line_length; i++) {
+    size_t leading_index = 0;
+    size_t const line_length = line.length();
+    for (size_t i = 0; i < line_length; i++) {
         if (line[i] != ' ') {
             leading_index = i;
             break; 
@@ -63,8 +59,8 @@ std::string Tokenizer::remove_whitespace(std::string line) {
     }
     
     // trailing whitespace
-    int trailing_index = line.length()-1;
-    for (int i = trailing_index; i >= 0; i--) {
+    size_t trailing_index = line.length()-1;
+    for (size_t i = trailing_index; i >= 0; i--) {
         if (line[i] != ' ') {
             trailing_index = i;
             break;
@@ -77,14 +73,12 @@ std::string Tokenizer::remove_whitespace(std::string line) {
 // Returns the index of the oper (address) in the tokenized instruction.
 // If the instruction does not have an oper (ie. INX) the return value
 // is -1.
-int Tokenizer::index_of_oper_in_tokenized_line(std::vector<std::string> tokenized_line) {
+int Tokenizer::oper_start_index_in_tokenized_line(std::vector<std::string> tokenized_line) {
     int oper_index = -1;
-    int tokenized_line_size = tokenized_line.size(); 
+    size_t const tokenized_line_size = tokenized_line.size();
 
-    for (int i = 0; i < tokenized_line_size; i++) {
-        if (tokenized_line[i][0] == '$' || tokenized_line[i][0] == '#')
-            oper_index = i;
-        else if (tokenized_line[i][0] == '(') 
+    for (size_t i = 0; i < tokenized_line_size; i++) {
+        if (tokenized_line[i][0] == '$' || tokenized_line[i][0] == '#' || tokenized_line[i][0] == '(')
             oper_index = i;
     }
 
@@ -92,7 +86,7 @@ int Tokenizer::index_of_oper_in_tokenized_line(std::vector<std::string> tokenize
 }
 
 std::string Tokenizer::oper(std::string oper_token) {
-    int start_index = 1;
+    size_t start_index = 1;
 
     if (oper_token[0] == '#')
         start_index = 2;
@@ -103,7 +97,7 @@ std::string Tokenizer::oper(std::string oper_token) {
             start_index = 2; 
     }
     
-    int oper_length = oper_token.length()-start_index;
+    size_t oper_length = oper_token.length()-start_index;
 
     return oper_token.substr(start_index, oper_length);
 }

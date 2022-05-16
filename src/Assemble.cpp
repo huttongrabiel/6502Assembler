@@ -20,7 +20,6 @@ int main(int argc, char* argv[]) {
     std::string binary_file_name = argv[2]; 
     std::ofstream executable(binary_file_name);
 
-    Tokenizer tokenizer;
     Translate translate;
     TranslationHelpers translationHelpers;
 
@@ -43,11 +42,11 @@ int main(int argc, char* argv[]) {
         }
 
         // Lines 46-55 parse the line into usable variables
-        auto trimmed_line = tokenizer.remove_whitespace(buffer);
-        trimmed_line = tokenizer.remove_comments(trimmed_line);
-        std::vector<std::string> const tokenized_line = tokenizer.tokenize_line(trimmed_line);
+        auto trimmed_line = Tokenizer::remove_whitespace(buffer);
+        trimmed_line = Tokenizer::remove_comments(trimmed_line);
+        std::vector<std::string> const tokenized_line = Tokenizer::tokenize_line(trimmed_line);
 
-        int const oper_index = tokenizer.index_of_oper_in_tokenized_line(tokenized_line);
+        int const oper_index = Tokenizer::oper_start_index_in_tokenized_line(tokenized_line);
 
         auto const standardized_instruction = translate.standardize_instruction(tokenized_line);
         int const instruction_opcode = translate.translate_instruction_to_hex_opcode(standardized_instruction, SymbolTable::m_program_counter);
@@ -57,7 +56,7 @@ int main(int argc, char* argv[]) {
 
         // oper_index returns -1 if no oper is found
         if (oper_index != -1) {
-            std::string const oper = tokenizer.oper(tokenized_line[oper_index]);
+            std::string const oper = Tokenizer::oper(tokenized_line[oper_index]);
             int const oper_low_byte = translate.oper_low_byte(oper);
             int const oper_high_byte = translate.oper_high_byte(oper);
 
