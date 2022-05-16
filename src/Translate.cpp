@@ -1,20 +1,9 @@
 #include <Translate.h>
 
-Translate::Translate()
-{
-};
+int Translate::translate_instruction_to_hex_opcode(std::string const& instruction, int program_counter) {
 
-Translate::~Translate()
-{
-};
-
-int Translate::translate_instruction_to_hex_opcode(std::string instruction, int program_counter) {
-
-    // FIXME: Do something about these class instances all over. Migrate to singletons where possible?
-    OpCodes opCodes;
-
-    auto opcode = opCodes.OpCodeMap.find(instruction);
-    if (opcode != opCodes.OpCodeMap.end()) {
+    auto opcode = OpCodes::OpCodeMap.find(instruction);
+    if (opcode != OpCodes::OpCodeMap.end()) {
         return opcode->second;
     }
     else {
@@ -23,9 +12,8 @@ int Translate::translate_instruction_to_hex_opcode(std::string instruction, int 
     }
 }
 
-std::string Translate::standardize_instruction(const std::vector<std::string>& instruction) {
+std::string Translate::standardize_instruction(std::vector<std::string> const& instruction) {
     //["ADC","$XXXX", "X"]  -> "ADC XXXX,X" which is quickly realized as 0x7D
-    TranslationHelpers translationHelpers;
 
     std::string instruction_builder;
 
@@ -33,7 +21,7 @@ std::string Translate::standardize_instruction(const std::vector<std::string>& i
         instruction_builder.push_back(character);
     }
     
-    if (translationHelpers.is_branch_instruction(instruction_builder))
+    if (TranslationHelpers::is_branch_instruction(instruction_builder))
         return instruction_builder;
 
     if (instruction.size() <= 1)
@@ -41,9 +29,9 @@ std::string Translate::standardize_instruction(const std::vector<std::string>& i
     
     instruction_builder.push_back(' ');
     
-    int instruction_one_length = instruction[1].length();    
+    size_t instruction_one_length = instruction[1].length();
 
-    for (int i = 0; i < instruction_one_length; i++) {
+    for (size_t i = 0; i < instruction_one_length; i++) {
         if (instruction[1][i] == '#') {
             instruction_builder.push_back(instruction[1][i]);
             return instruction_builder; // Full stop if immediate addressing.
@@ -68,17 +56,15 @@ std::string Translate::standardize_instruction(const std::vector<std::string>& i
     return instruction_builder;
 }
 
-int Translate::oper_low_byte(const std::string oper) {
-    int oper_length = oper.length();
+int Translate::oper_low_byte(std::string const& oper) {
+    size_t oper_length = oper.length();
 
     if (oper_length < 2)
         return -1;
 
     std::string low_byte_string = oper.substr(oper_length-2, 2);
 
-    TranslationHelpers translationHelpers;
-
-    int low_byte = translationHelpers.address_as_int(low_byte_string);
+    int low_byte = TranslationHelpers::address_as_int(low_byte_string);
     
     // If the oper is a zeropage ($56), we should return 0.
     // $56 is the same as $5600 which means our LSByte is 0.
@@ -88,31 +74,26 @@ int Translate::oper_low_byte(const std::string oper) {
     return low_byte;
 }
 
-int Translate::oper_high_byte(const std::string oper) {
+int Translate::oper_high_byte(std::string const& oper) {
     if (oper.length() < 2) {
         return -1;
     }
 
     std::string high_byte_string = oper.substr(0, 2);
 
-    TranslationHelpers translationHelpers;
-
-    int high_byte = translationHelpers.address_as_int(high_byte_string);
+    int high_byte = TranslationHelpers::address_as_int(high_byte_string);
     
     return high_byte;
 }
 
-std::string Translate::label_address_binary(const std::vector<std::string> branch_instruction, int program_counter) {
-    SymbolTable symbolTable;
-    TranslationHelpers translationHelpers;
-    
+std::string Translate::label_address_binary(std::vector<std::string> const& branch_instruction, int program_counter) {
     auto const label = branch_instruction[1];
 
-    auto const label_address = symbolTable.symbol_table.find(label);
+    auto const label_address = SymbolTable::symbol_table.find(label);
 
-    if (label_address == symbolTable.symbol_table.end()) {
-        std::string string_builder = "";
-        for (auto const token : branch_instruction) {
+    if (label_address == SymbolTable::symbol_table.end()) {
+        std::string string_builder;
+        for (auto const& token : branch_instruction) {
             string_builder += token;
             string_builder += " ";
         }
@@ -121,33 +102,13 @@ std::string Translate::label_address_binary(const std::vector<std::string> branc
         exit(1);
     }
 
-    std::string const binary_address = translationHelpers.decimal_to_binary(label_address->second);
+    std::string binary_address = TranslationHelpers::decimal_to_binary(label_address->second);
     
     return binary_address;
 }
 
-TranslationHelpers::TranslationHelpers() 
-{
-};
-
-TranslationHelpers::~TranslationHelpers()
-{
-};
-
-int TranslationHelpers::address_as_int(std::string address) {
-    int address_int = 0;
-    int multiple = 1; 
-
-    for (int i = address.length()-1; i >= 0; i--) {
-        int character_int = address[i] - '0';
-
-        if (character_int >= 0 && character_int <= 9) {
-            address_int += character_int * multiple;
-            multiple *= 10;
-        }
-    }
-    
-    return std::stoi(address,0,16);
+int TranslationHelpers::address_as_int(std::string const& address) {
+    return std::stoi(address,nullptr,16);
 }
 
 std::string TranslationHelpers::decimal_to_binary(int decimal_value) {
@@ -160,7 +121,7 @@ std::string TranslationHelpers::decimal_to_binary(int decimal_value) {
     return result;
 }
 
-bool TranslationHelpers::is_branch_instruction(std::string instruction) {
+bool TranslationHelpers::is_branch_instruction(std::string const& instruction) {
     std::set<std::string> branch_instructions {"BPL", "BMI", "BVC", "BVS", "BCC", "BCS", "BNE", "BEQ"};
     
     if (branch_instructions.count(instruction))

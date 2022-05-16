@@ -10,22 +10,22 @@
 
 class Translate {
 public:
-    Translate();
-    ~Translate();
-    int translate_instruction_to_hex_opcode(std::string, int);
-    std::string standardize_instruction(const std::vector<std::string>&);
-    int oper_low_byte(const std::string);
-    int oper_high_byte(const std::string);
-    std::string label_address_binary(const std::vector<std::string>, int);
+    Translate() = default;
+    ~Translate() = default;
+    static int translate_instruction_to_hex_opcode(std::string const&, int);
+    static std::string standardize_instruction(std::vector<std::string> const&);
+    static int oper_low_byte(std::string const&);
+    static int oper_high_byte(std::string const&);
+    static std::string label_address_binary(std::vector<std::string> const&, int);
 };
 
 class TranslationHelpers : public Translate {
 public:
-    TranslationHelpers();
-    ~TranslationHelpers();
-    int address_as_int(std::string);
-    std::string decimal_to_binary(int);
-    bool is_branch_instruction(std::string);
+    TranslationHelpers() = default;
+    ~TranslationHelpers() = default;
+    static int address_as_int(std::string const&);
+    static std::string decimal_to_binary(int);
+    static bool is_branch_instruction(std::string const&);
 };
 
 #endif
