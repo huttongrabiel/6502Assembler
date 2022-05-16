@@ -73,7 +73,7 @@ int main(int argc, char* argv[]) {
         }
 
         if (translationHelpers.is_branch_instruction(tokenized_line[0])) {
-            std::string const label_address_binary = translate.label_address_binary(tokenized_line);
+            std::string const label_address_binary = translate.label_address_binary(tokenized_line, SymbolTable::m_program_counter);
             executable << label_address_binary << std::endl;
         }
 

@@ -104,7 +104,7 @@ int Translate::oper_high_byte(const std::string oper) {
     return high_byte;
 }
 
-std::string Translate::label_address_binary(const std::vector<std::string> branch_instruction) {
+std::string Translate::label_address_binary(const std::vector<std::string> branch_instruction, int program_counter) {
     SymbolTable symbolTable;
     TranslationHelpers translationHelpers;
     
