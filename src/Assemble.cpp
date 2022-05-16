@@ -20,13 +20,12 @@ int main(int argc, char* argv[]) {
     std::string binary_file_name = argv[2]; 
     std::ofstream executable(binary_file_name);
 
-    SymbolTable symbolTable;
     Tokenizer tokenizer;
     Translate translate;
     TranslationHelpers translationHelpers;
 
     // Add label key values to symbol_table
-    symbolTable.fill_symbol_table(source_code);
+    SymbolTable::fill_symbol_table(source_code);
 
     // Reset the .asm file to read starting at 0th position
     source_code.clear();
@@ -38,7 +37,7 @@ int main(int argc, char* argv[]) {
     while (std::getline(source_code, buffer)) {
 
         // Labels are already handled in earlier fill_symbol_table call
-        if (symbolTable.is_label(buffer)) {
+        if (SymbolTable::is_label(buffer)) {
             SymbolTable::m_program_counter++;
             continue;
         }
