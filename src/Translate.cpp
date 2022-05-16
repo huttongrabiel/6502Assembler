@@ -10,6 +10,7 @@ Translate::~Translate()
 
 int Translate::translate_instruction_to_hex_opcode(std::string instruction, int program_counter) {
 
+    // FIXME: Do something about these class instances all over. Migrate to singletons where possible?
     OpCodes opCodes;
 
     auto opcode = opCodes.OpCodeMap.find(instruction);
@@ -17,10 +18,7 @@ int Translate::translate_instruction_to_hex_opcode(std::string instruction, int 
         return opcode->second;
     }
     else {
-         //FIXME: Does not print the correct line at which the error occured (always prints 1).
-        std::cerr << "ERROR: Instruction " << instruction << " not found at line - " << std::endl;
-        std::cerr << "If the offending line is a branch instruction, check that you created the label." 
-                        " If the offending line is an instruction, check your spelling and syntax for that instruction" << std::endl;
+        std::cerr << "ERROR at line " << program_counter << ". \nInstruction " << instruction << " not found." << std::endl;
         return 1;
     }
 }
@@ -118,7 +116,7 @@ std::string Translate::label_address_binary(const std::vector<std::string> branc
             string_builder += token;
             string_builder += " ";
         }
-        std::cerr << "ERROR at line " << symbolTable.m_program_counter-1 << ". \nLabel " << label << " not found in instruction:\n     '" << string_builder << "'" << std::endl;
+        std::cerr << "ERROR at line " << program_counter << ". \nLabel " << label << " not found in instruction:\n     '" << string_builder << "'" << std::endl;
         std::cerr << "Did you forget to create this label?" << std::endl;
         exit(1);
     }
