@@ -40,8 +40,6 @@ void SymbolTable::print_symbol_table() {
 }
 
 bool SymbolTable::is_label(std::string line) {
-    OpCodes opCodes;
-    
     bool has_colon = line[line.length()-1] == ':';
     if (has_colon)
         return true;
