@@ -11,12 +11,12 @@ int main(int argc, char* argv[]) {
     std::ifstream source_code(argv[1]);
 
     if (!source_code.is_open()) {
-        std::cerr <<  "ERROR: File '" << argv[1] << "' not found. Check file path." << std::endl;
+        std::cerr <<  "\033[1;31mERROR: \033[0mFile '" << argv[1] << "' not found. Check file path." << std::endl;
         exit(1);
     }
     
     if (!argv[2]) {
-        std::cerr << "ERROR: No executable file name provided. Assembler requires three arguments total." << std::endl;
+        std::cerr << "\033[1;31mERROR: \033[0mNo executable file name provided. Assembler requires three arguments total." << std::endl;
         exit(1);
     }
     

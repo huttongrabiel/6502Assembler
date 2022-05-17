@@ -11,7 +11,7 @@ int Translate::translate_instruction_to_hex_opcode(std::string const& instructio
         return opcode->second;
     }
     else {
-        std::cerr << "ERROR at line " << program_counter << ". \nInstruction " << instruction << " not found." << std::endl;
+        std::cerr << "\033[01;31mERROR: \033[0mAt line " << program_counter << ". \nInstruction " << instruction << " not found." << std::endl;
         return 1;
     }
 }
@@ -101,7 +101,7 @@ std::string Translate::label_address_binary(std::vector<std::string> const& bran
             string_builder += token;
             string_builder += " ";
         }
-        std::cerr << "ERROR at line " << program_counter << ". \nLabel " << label << " not found in instruction:\n     '" << string_builder << "'" << std::endl;
+        std::cerr << "\033[01;31mERROR: \033[0mAt line " << program_counter << ". \nLabel " << label << " not found in instruction:\n     '" << string_builder << "'" << std::endl;
         std::cerr << "Did you forget to create this label?" << std::endl;
         exit(1);
     }
