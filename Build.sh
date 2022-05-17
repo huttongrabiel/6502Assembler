@@ -14,7 +14,7 @@ trap 'printf "${RED}ERROR: \"${last_command}\" command failed with exit code $?.
 
 cd $SCRIPT_DIR
 
-if [ $1 == "--tests" ]; then
+if [ "$1" == "--tests" ]; then
 
     printf "\n"
     printf "${YELLOW}[RUNNING TESTS]${WHITE}\n"
