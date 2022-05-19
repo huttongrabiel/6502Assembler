@@ -63,7 +63,7 @@ std::string Translate::standardize_instruction(std::vector<std::string> const& i
 int Translate::oper_low_byte(std::string const& oper) {
     size_t oper_length = oper.length();
 
-    if (oper_length < 2)
+    if (oper_length <= 2)
         return -1;
 
     std::string low_byte_string = oper.substr(oper_length-2, 2);
