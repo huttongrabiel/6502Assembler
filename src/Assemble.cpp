@@ -73,7 +73,7 @@ int main(int argc, char* argv[]) {
 
             // oper_low_byte and oper_high_byte return -1 if there is no oper
         
-            if (oper_low_byte > 0) {
+            if (oper_low_byte > 0 || (oper_low_byte >= 0 && oper_high_byte != -1)) {
                 std::string const oper_low_byte_binary = TranslationHelpers::decimal_to_binary(oper_low_byte);
                 executable << oper_low_byte_binary << std::endl;
                 if (hexdump)
