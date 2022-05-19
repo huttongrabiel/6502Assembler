@@ -44,7 +44,6 @@ int main(int argc, char* argv[]) {
 
         // Labels are already handled in earlier fill_symbol_table call
         if (SymbolTable::is_label(buffer)) {
-            SymbolTable::m_program_counter++;
             continue;
         }
 
