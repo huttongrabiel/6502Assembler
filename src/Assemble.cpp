@@ -6,6 +6,7 @@
 #include <SymbolTable.h>
 #include <Tokenizer.h>
 #include <Translate.h>
+#include <cstring>
 
 int main(int argc, char* argv[]) {
     std::ifstream source_code(argv[1]);
@@ -18,6 +19,11 @@ int main(int argc, char* argv[]) {
     if (!argv[2]) {
         std::cerr << "\033[1;31mERROR: \033[0mNo executable file name provided. Assembler requires three arguments total." << std::endl;
         exit(1);
+    }
+
+    bool hexdump = false;
+    if (argv[3] && strcmp(argv[3], "--hexdump") == 0) {
+        hexdump = true;
     }
     
     std::string binary_file_name = argv[2]; 
@@ -52,6 +58,11 @@ int main(int argc, char* argv[]) {
         int const instruction_opcode = Translate::translate_instruction_to_hex_opcode(standardized_instruction, SymbolTable::m_program_counter);
         std::string binary_instruction_opcode = TranslationHelpers::decimal_to_binary(instruction_opcode);
 
+        if (hexdump) {
+            std::cout << std::hex << "0x" << SymbolTable::m_program_counter << ": ";
+            std::cout << std::hex << instruction_opcode << " ";
+        }
+
         executable << binary_instruction_opcode << std::endl;
 
         // oper_index returns -1 if no oper is found
@@ -65,11 +76,15 @@ int main(int argc, char* argv[]) {
             if (oper_low_byte > 0) {
                 std::string const oper_low_byte_binary = TranslationHelpers::decimal_to_binary(oper_low_byte);
                 executable << oper_low_byte_binary << std::endl;
+                if (hexdump)
+                    std::cout << std::hex << oper_low_byte << " ";
             }
 
             if (oper_high_byte > 0) {
                 std::string const oper_high_byte_binary = TranslationHelpers::decimal_to_binary(oper_high_byte);
                 executable << oper_high_byte_binary << std::endl;
+                if (hexdump)
+                    std::cout << std::hex << oper_high_byte << std::endl;
             }
         }
 
@@ -77,6 +92,13 @@ int main(int argc, char* argv[]) {
         if (TranslationHelpers::is_branch_instruction(tokenized_line[0])) {
             std::string const binary_address_of_label = Translate::label_address_binary(tokenized_line, SymbolTable::m_program_counter);
             executable << binary_address_of_label << std::endl;
+
+            auto label_address = SymbolTable::symbol_table.find(tokenized_line[1]);
+            if (label_address != SymbolTable::symbol_table.end() && hexdump) {
+                // FIXME: Print high/low byte instead of just the whole byte. This requires figuring out how to
+                // do it...
+                std::cout << std::hex << label_address->second << std::endl;
+            }
         }
 
         SymbolTable::m_program_counter++;
