@@ -37,6 +37,7 @@ int main(int argc, char* argv[]) {
     source_code.seekg(0);
 
     SymbolTable::m_program_counter = 1;
+    unsigned long long memory_address = 0x800;
 
     std::string buffer;
     while (std::getline(source_code, buffer)) {
@@ -59,7 +60,7 @@ int main(int argc, char* argv[]) {
         std::string binary_instruction_opcode = TranslationHelpers::decimal_to_binary(instruction_opcode);
 
         if (hexdump) {
-            std::cout << std::hex << "0x" << SymbolTable::m_program_counter << ": ";
+            std::cout << std::hex << "0x" << memory_address << ": ";
             std::cout << std::hex << instruction_opcode << " ";
         }
 
@@ -102,6 +103,7 @@ int main(int argc, char* argv[]) {
         }
 
         SymbolTable::m_program_counter++;
+        memory_address++;
 
     }
     
