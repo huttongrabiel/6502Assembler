@@ -26,7 +26,13 @@ std::vector<std::string> Tokenizer::tokenize_line(std::string const& line) {
     return tokenized_line;
 }
 
-std::string Tokenizer::remove_comments(std::string line) {
+std::string Tokenizer::trim_line(std::string& line) {
+    Tokenizer::remove_whitespace(line);
+    Tokenizer::remove_comments(line);
+    return line;
+}
+
+std::string Tokenizer::remove_comments(std::string& line) {
     size_t const line_length = line.length();
     size_t comment_index = line_length-1; // EOL in case no comment
 
@@ -47,7 +53,7 @@ std::string Tokenizer::remove_comments(std::string line) {
 }
 
 // Make sure this is called before tokenize_line
-std::string Tokenizer::remove_whitespace(std::string line) {
+std::string Tokenizer::remove_whitespace(std::string& line) {
     // leading whitespace
     size_t leading_index = 0;
     size_t const line_length = line.length();
