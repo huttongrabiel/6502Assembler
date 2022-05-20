@@ -10,8 +10,7 @@ set(CMAKE_CXX_FLAGS "-g -Wall -std=c++17 -Werror -D CMAKE_CXX_COMPILER=/usr/bin/
 set( TestFiles 
     TestTranslateInstructionToHexOpcode.cpp
     TestStandardizeInstruction.cpp
-    TestOperLowByte.cpp
-    TestOperHighByte.cpp
+    TestOperByte.cpp
     TestHelperDecimalToBinary.cpp
     TestTranslationHelperAddressAsInt.cpp
     TestTranslationHelperIsBranchInstruction.cpp
