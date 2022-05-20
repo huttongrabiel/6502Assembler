@@ -44,6 +44,7 @@ int main(int argc, char* argv[]) {
 
         // Skip lines that are labels or blank
         if (SymbolTable::is_label(buffer) || TranslationHelpers::is_blank_line(buffer) || buffer.empty()) {
+            SymbolTable::m_program_counter++;
             continue;
         }
 
