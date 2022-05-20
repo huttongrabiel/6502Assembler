@@ -48,8 +48,7 @@ int main(int argc, char* argv[]) {
         }
 
         // Lines 46-55 parse the line into usable variables
-        auto trimmed_line = Tokenizer::remove_whitespace(buffer);
-        trimmed_line = Tokenizer::remove_comments(trimmed_line);
+        auto trimmed_line = Tokenizer::trim_line(buffer);
         std::vector<std::string> const tokenized_line = Tokenizer::tokenize_line(trimmed_line);
 
         int const oper_index = Tokenizer::oper_start_index_in_tokenized_line(tokenized_line);
