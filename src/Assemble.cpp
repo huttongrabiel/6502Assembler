@@ -68,8 +68,8 @@ int main(int argc, char* argv[]) {
         // oper_index returns -1 if no oper is found
         if (oper_index != -1) {
             std::string const oper = Tokenizer::oper(tokenized_line[oper_index]);
-            int const oper_low_byte = Translate::oper_low_byte(oper);
-            int const oper_high_byte = Translate::oper_high_byte(oper);
+            int const oper_low_byte = Translate::oper_byte(oper, Translate::OperByte::Low);
+            int const oper_high_byte = Translate::oper_byte(oper, Translate::OperByte::High);
 
             // oper_low_byte and oper_high_byte return -1 if there is no oper
         

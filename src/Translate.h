@@ -16,10 +16,15 @@ class Translate {
 public:
     Translate() = default;
     ~Translate() = default;
+
+    enum class OperByte {
+        High,
+        Low
+    };
+
     static int translate_instruction_to_hex_opcode(std::string const&, int);
     static std::string standardize_instruction(std::vector<std::string> const&);
-    static int oper_low_byte(std::string const&);
-    static int oper_high_byte(std::string const&);
+    static int oper_byte(std::string, OperByte);
     static std::string label_address_binary(std::vector<std::string> const&, int);
 };
 

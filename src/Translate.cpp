@@ -60,34 +60,26 @@ std::string Translate::standardize_instruction(std::vector<std::string> const& i
     return instruction_builder;
 }
 
-int Translate::oper_low_byte(std::string const& oper) {
+int Translate::oper_byte(std::string oper, OperByte operByte) {
     size_t oper_length = oper.length();
+    int byte;
 
-    if (oper_length <= 2)
-        return -1;
-
-    std::string low_byte_string = oper.substr(oper_length-2, 2);
-
-    int low_byte = TranslationHelpers::address_as_int(low_byte_string);
-    
-    // If the oper is a zeropage ($56), we should return 0.
-    // $56 is the same as $5600 which means our LSByte is 0.
-    if (oper.length() < 4)
-        return 0;
-
-    return low_byte;
-}
-
-int Translate::oper_high_byte(std::string const& oper) {
-    if (oper.length() < 2) {
-        return -1;
+    switch (operByte) {
+        case OperByte::Low:
+            if (oper_length <= 2)
+                return -1;
+            else if (oper_length < 4)
+                return 0;
+            byte = TranslationHelpers::address_as_int(oper.substr(oper_length-2, 2));
+            return byte;
+        case OperByte::High:
+            if (oper.length() < 2)
+                return -1;
+            byte = TranslationHelpers::address_as_int(oper.substr(0,2));
+            return byte;
+        default:
+            return -1;
     }
-
-    std::string high_byte_string = oper.substr(0, 2);
-
-    int high_byte = TranslationHelpers::address_as_int(high_byte_string);
-    
-    return high_byte;
 }
 
 std::string Translate::label_address_binary(std::vector<std::string> const& branch_instruction, int program_counter) {
