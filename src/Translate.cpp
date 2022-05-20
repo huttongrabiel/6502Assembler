@@ -11,7 +11,7 @@ int Translate::translate_instruction_to_hex_opcode(std::string const& instructio
         return opcode->second;
     }
     else {
-        std::cerr << "\033[01;31mERROR: \033[0mAt line " << program_counter << ". \nInstruction " << instruction << " not found." << std::endl;
+        std::cerr << "\033[01;31mERROR: \033[0mAt line " << program_counter << ". \nInstruction '" << instruction << "' not found." << std::endl;
         return 1;
     }
 }
