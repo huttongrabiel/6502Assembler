@@ -35,6 +35,7 @@ public:
     static int address_as_int(std::string const&);
     static std::string decimal_to_binary(int);
     static bool is_branch_instruction(std::string const&);
+    static bool is_blank_line(std::string const&);
 };
 
 #endif

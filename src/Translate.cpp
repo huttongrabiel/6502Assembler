@@ -125,3 +125,11 @@ bool TranslationHelpers::is_branch_instruction(std::string const& instruction) {
 
     return false;
 }
+
+bool TranslationHelpers::is_blank_line(std::string const& instruction) {
+    for (auto ch : instruction)
+        if (ch != ' ' && ch != '\n' && ch)
+            return false;
+
+    return true;
+}

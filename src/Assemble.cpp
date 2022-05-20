@@ -42,8 +42,8 @@ int main(int argc, char* argv[]) {
     std::string buffer;
     while (std::getline(source_code, buffer)) {
 
-        // Labels are already handled in earlier fill_symbol_table call
-        if (SymbolTable::is_label(buffer)) {
+        // Skip lines that are labels or blank
+        if (SymbolTable::is_label(buffer) || TranslationHelpers::is_blank_line(buffer) || buffer.empty()) {
             continue;
         }
 
