@@ -10,9 +10,6 @@ See [Build Instructions](Documentation/BuildInstructions.md)
   - [X] Handle own line labels with colons (ie LOOP:)
   - [X] Have translate look in labels for string that follows a branch instruction
   - [X] Correct labels having wrong value pair (fix program counter incrementation)
-- [ ] Syntax Checking
-  - [ ] Parentheses
-  - [ ] Brackets
 - [ ] More Tests
 - [X] Documentation
   - [X] Building
