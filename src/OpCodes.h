@@ -6,6 +6,7 @@
 #define INC_6502ASSEMBLER_OPCODES_H
 
 #include <map>
+#include <string>
 
 class OpCodes {
 public: 
