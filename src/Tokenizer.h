@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <vector>
+#include <optional>
 
 class Tokenizer {
 public:
@@ -15,7 +16,7 @@ public:
 
     static std::vector<std::string> tokenize_line(std::string const&);
     static std::string trim_line(std::string&);
-    static int oper_start_index_in_tokenized_line(std::vector<std::string> tokenized_line);
+    static std::optional<int> oper_start_index_in_tokenized_line(std::vector<std::string> tokenized_line);
     static std::string oper(std::string);
 
 private:

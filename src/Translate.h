@@ -10,6 +10,7 @@
 #include <OpCodes.h>
 #include <bitset>
 #include <set>
+#include <optional>
 #include <SymbolTable.h>
 
 class Translate {
@@ -24,7 +25,7 @@ public:
 
     static int translate_instruction_to_hex_opcode(std::string const&, int);
     static std::string standardize_instruction(std::vector<std::string> const&);
-    static int oper_byte(std::string, OperByte);
+    static std::optional<int> oper_byte(std::string, OperByte);
     static std::string label_address_binary(std::vector<std::string> const&, int);
 };
 

@@ -7,6 +7,7 @@
 #include <Tokenizer.h>
 #include <Translate.h>
 #include <cstring>
+#include <optional>
 
 int main(int argc, char* argv[]) {
     std::ifstream source_code(argv[1]);
@@ -52,7 +53,7 @@ int main(int argc, char* argv[]) {
         auto trimmed_line = Tokenizer::trim_line(buffer);
         std::vector<std::string> const tokenized_line = Tokenizer::tokenize_line(trimmed_line);
 
-        int const oper_index = Tokenizer::oper_start_index_in_tokenized_line(tokenized_line);
+        std::optional<int> const oper_index = Tokenizer::oper_start_index_in_tokenized_line(tokenized_line);
 
         auto const standardized_instruction = Translate::standardize_instruction(tokenized_line);
         int const instruction_opcode = Translate::translate_instruction_to_hex_opcode(standardized_instruction, SymbolTable::m_program_counter);
@@ -65,26 +66,23 @@ int main(int argc, char* argv[]) {
 
         executable << binary_instruction_opcode << std::endl;
 
-        // oper_index returns -1 if no oper is found
-        if (oper_index != -1) {
-            std::string const oper = Tokenizer::oper(tokenized_line[oper_index]);
-            int const oper_low_byte = Translate::oper_byte(oper, Translate::OperByte::Low);
-            int const oper_high_byte = Translate::oper_byte(oper, Translate::OperByte::High);
+        if (oper_index.has_value()) {
+            std::string const oper = Tokenizer::oper(tokenized_line[oper_index.value()]);
+            std::optional<int> const oper_low_byte = Translate::oper_byte(oper, Translate::OperByte::Low);
+            std::optional<int> const oper_high_byte = Translate::oper_byte(oper, Translate::OperByte::High);
 
-            // oper_low_byte and oper_high_byte return -1 if there is no oper
-        
-            if (oper_low_byte > 0 || (oper_low_byte >= 0 && oper_high_byte != -1)) {
-                std::string const oper_low_byte_binary = TranslationHelpers::decimal_to_binary(oper_low_byte);
+            if (oper_low_byte.has_value() || (oper_low_byte.has_value() && oper_high_byte.has_value())) {
+                std::string const oper_low_byte_binary = TranslationHelpers::decimal_to_binary(oper_low_byte.value());
                 executable << oper_low_byte_binary << std::endl;
                 if (hexdump)
-                    std::cout << std::hex << oper_low_byte << " ";
+                    std::cout << std::hex << oper_low_byte.value() << " ";
             }
 
-            if (oper_high_byte > 0) {
-                std::string const oper_high_byte_binary = TranslationHelpers::decimal_to_binary(oper_high_byte);
+            if (oper_high_byte.has_value()) {
+                std::string const oper_high_byte_binary = TranslationHelpers::decimal_to_binary(oper_high_byte.value());
                 executable << oper_high_byte_binary << std::endl;
                 if (hexdump)
-                    std::cout << std::hex << oper_high_byte << std::endl;
+                    std::cout << std::hex << oper_high_byte.value() << std::endl;
             }
         }
 

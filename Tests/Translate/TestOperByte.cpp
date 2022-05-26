@@ -11,6 +11,6 @@ TEST_CASE( "Test Oper High Byte Extraction" ) {
 TEST_CASE( "Test Oper Low Byte Extraction" ) {
     REQUIRE( Translate::oper_byte("8347", Translate::OperByte::Low) == 71 );
     REQUIRE( Translate::oper_byte("7263", Translate::OperByte::Low) == 99 );
-    REQUIRE( Translate::oper_byte("38", Translate::OperByte::Low) == -1 );
-    REQUIRE( Translate::oper_byte("98", Translate::OperByte::Low) == -1 );
+    REQUIRE( Translate::oper_byte("38", Translate::OperByte::Low).has_value() == false );
+    REQUIRE( Translate::oper_byte("98", Translate::OperByte::Low).has_value() == false );
 }

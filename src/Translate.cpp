@@ -60,25 +60,25 @@ std::string Translate::standardize_instruction(std::vector<std::string> const& i
     return instruction_builder;
 }
 
-int Translate::oper_byte(std::string oper, OperByte operByte) {
+std::optional<int> Translate::oper_byte(std::string oper, OperByte operByte) {
     size_t oper_length = oper.length();
     int byte;
 
     switch (operByte) {
         case OperByte::Low:
             if (oper_length <= 2)
-                return -1;
+                return {};
             else if (oper_length < 4)
                 return 0;
             byte = TranslationHelpers::address_as_int(oper.substr(oper_length-2, 2));
             return byte;
         case OperByte::High:
             if (oper.length() < 2)
-                return -1;
+                return {};
             byte = TranslationHelpers::address_as_int(oper.substr(0,2));
             return byte;
         default:
-            return -1;
+            return {};
     }
 }
 
