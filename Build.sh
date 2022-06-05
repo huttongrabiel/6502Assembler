@@ -44,7 +44,7 @@ if [ ! -d Build ]; then
 fi
 
 cd $SCRIPT_DIR/Build
-cmake ..
+cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS=1
 make
 
 printf "\n"
