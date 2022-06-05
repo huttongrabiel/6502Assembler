@@ -27,16 +27,11 @@ public:
     static std::string standardize_instruction(std::vector<std::string> const&);
     static std::optional<int> oper_byte(std::string, OperByte);
     static std::string label_address_binary(std::vector<std::string> const&, int);
-};
-
-class TranslationHelpers : public Translate {
-public:
-    TranslationHelpers() = default;
-    ~TranslationHelpers() = default;
-    static int address_as_int(std::string const&);
-    static std::string decimal_to_binary(int);
-    static bool is_branch_instruction(std::string const&);
     static bool is_blank_line(std::string const&);
+    static bool is_branch_instruction(std::string const&);
+    static std::string decimal_to_binary(int);
+private:
+    static int address_as_int(std::string const&);
 };
 
 #endif

@@ -12,7 +12,6 @@ set( TestFiles
     TestStandardizeInstruction.cpp
     TestOperByte.cpp
     TestHelperDecimalToBinary.cpp
-    TestTranslationHelperAddressAsInt.cpp
     TestTranslationHelperIsBranchInstruction.cpp
    )
 

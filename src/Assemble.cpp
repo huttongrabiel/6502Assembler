@@ -44,7 +44,7 @@ int main(int argc, char* argv[]) {
     while (std::getline(source_code, buffer)) {
 
         // Skip lines that are labels or blank
-        if (SymbolTable::is_label(buffer) || TranslationHelpers::is_blank_line(buffer) || buffer.empty()) {
+        if (SymbolTable::is_label(buffer) || Translate::is_blank_line(buffer) || buffer.empty()) {
             SymbolTable::m_program_counter++;
             continue;
         }
@@ -57,7 +57,7 @@ int main(int argc, char* argv[]) {
 
         auto const standardized_instruction = Translate::standardize_instruction(tokenized_line);
         int const instruction_opcode = Translate::translate_instruction_to_hex_opcode(standardized_instruction, SymbolTable::m_program_counter);
-        std::string binary_instruction_opcode = TranslationHelpers::decimal_to_binary(instruction_opcode);
+        std::string binary_instruction_opcode = Translate::decimal_to_binary(instruction_opcode);
 
         if (hexdump) {
             std::cout << std::hex << "0x" << memory_address << ": ";
@@ -72,14 +72,14 @@ int main(int argc, char* argv[]) {
             std::optional<int> const oper_high_byte = Translate::oper_byte(oper, Translate::OperByte::High);
 
             if (oper_low_byte.has_value() || (oper_low_byte.has_value() && oper_high_byte.has_value())) {
-                std::string const oper_low_byte_binary = TranslationHelpers::decimal_to_binary(oper_low_byte.value());
+                std::string const oper_low_byte_binary = Translate::decimal_to_binary(oper_low_byte.value());
                 executable << oper_low_byte_binary << std::endl;
                 if (hexdump)
                     std::cout << std::hex << oper_low_byte.value() << " ";
             }
 
             if (oper_high_byte.has_value()) {
-                std::string const oper_high_byte_binary = TranslationHelpers::decimal_to_binary(oper_high_byte.value());
+                std::string const oper_high_byte_binary = Translate::decimal_to_binary(oper_high_byte.value());
                 executable << oper_high_byte_binary << std::endl;
                 if (hexdump)
                     std::cout << std::hex << oper_high_byte.value() << std::endl;
@@ -87,7 +87,7 @@ int main(int argc, char* argv[]) {
         }
 
         // Branch instructions are handled separately due to the need to lookup the label in the symbol table
-        if (TranslationHelpers::is_branch_instruction(tokenized_line[0])) {
+        if (Translate::is_branch_instruction(tokenized_line[0])) {
             std::string const binary_address_of_label = Translate::label_address_binary(tokenized_line, SymbolTable::m_program_counter);
             executable << binary_address_of_label << std::endl;
 

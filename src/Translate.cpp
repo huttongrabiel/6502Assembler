@@ -25,7 +25,7 @@ std::string Translate::standardize_instruction(std::vector<std::string> const& i
         instruction_builder.push_back(character);
     }
     
-    if (TranslationHelpers::is_branch_instruction(instruction_builder))
+    if (Translate::is_branch_instruction(instruction_builder))
         return instruction_builder;
 
     if (instruction.size() <= 1)
@@ -70,12 +70,12 @@ std::optional<int> Translate::oper_byte(std::string oper, OperByte operByte) {
                 return {};
             else if (oper_length < 4)
                 return 0;
-            byte = TranslationHelpers::address_as_int(oper.substr(oper_length-2, 2));
+            byte = Translate::address_as_int(oper.substr(oper_length-2, 2));
             return byte;
         case OperByte::High:
             if (oper.length() < 2)
                 return {};
-            byte = TranslationHelpers::address_as_int(oper.substr(0,2));
+            byte = Translate::address_as_int(oper.substr(0,2));
             return byte;
         default:
             return {};
@@ -98,21 +98,21 @@ std::string Translate::label_address_binary(std::vector<std::string> const& bran
         exit(1);
     }
 
-    std::string binary_address = TranslationHelpers::decimal_to_binary(label_address->second);
+    std::string binary_address = Translate::decimal_to_binary(label_address->second);
     
     return binary_address;
 }
 
-int TranslationHelpers::address_as_int(std::string const& address) {
+int Translate::address_as_int(std::string const& address) {
     return std::stoi(address,nullptr,16);
 }
 
-std::string TranslationHelpers::decimal_to_binary(int decimal_value) {
+std::string Translate::decimal_to_binary(int decimal_value) {
     std::string result = std::bitset<8>(decimal_value).to_string();
     return result;
 }
 
-bool TranslationHelpers::is_branch_instruction(std::string const& instruction) {
+bool Translate::is_branch_instruction(std::string const& instruction) {
     std::set<std::string> branch_instructions {"BPL", "BMI", "BVC", "BVS", "BCC", "BCS", "BNE", "BEQ"};
     
     if (branch_instructions.count(instruction))
@@ -121,7 +121,7 @@ bool TranslationHelpers::is_branch_instruction(std::string const& instruction) {
     return false;
 }
 
-bool TranslationHelpers::is_blank_line(std::string const& instruction) {
+bool Translate::is_blank_line(std::string const& instruction) {
     for (auto ch : instruction)
         if (ch != ' ' && ch != '\n' && ch)
             return false;
